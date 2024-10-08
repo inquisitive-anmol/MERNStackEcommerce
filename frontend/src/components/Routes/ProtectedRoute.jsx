@@ -10,7 +10,7 @@ const ProtectedRoute = ({ children }) => {
 
 
   if (!loading) {
-    if (!isAuthenticated === false) {
+    if (!isAuthenticated) {
       return navigate("/login", {state: {from: location.pathname}});
     }
     return children;

@@ -15,9 +15,9 @@ const Login = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const alert = useAlert();
-console.log(location);
+
   const redirect = location.state?.from || "/account";
-console.log(redirect);
+  
   const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
   );
@@ -30,7 +30,6 @@ console.log(redirect);
 
     if (isAuthenticated) {
       navigate(redirect);
-      console.log('ha hai yhi pr');
     }
   }, [dispatch, error, alert, navigate, isAuthenticated, redirect]);
 

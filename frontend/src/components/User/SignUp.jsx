@@ -14,7 +14,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
 
-  const from = location.state?.from || "/";
+  const from = location.state?.from || "/account";
   const [avatar, setAvatar] = useState();
   const [avatarPreview, setAvatarPreview] = useState("/images/profile.png");
   const { error, loading, isAuthenticated } = useSelector(

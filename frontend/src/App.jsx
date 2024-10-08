@@ -95,6 +95,15 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          exact
+          path="/shipping"
+          element={
+            <ProtectedRoute>
+              <Shipping />
+            </ProtectedRoute>
+          }
+        />
         <Route exact path="/shipping" Component={Shipping} />
 
         <Route
@@ -154,4 +163,3 @@ const App = () => {
 
 export default App;
 
-// <ProtectedRoute children={<Profile />} />

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { saveShippingInfo } from "../../reduxStore/actions/cartAction";
 import MetaData from "../layout/MetaData";
-import { Country, State } from "country-state-city";
+// import { Country, State } from "country-state-city";
+import { Country, State, City } from "country-state-city";
 import { useAlert } from "react-alert";
 import CheckoutSteps from "./CheckoutSteps";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +23,8 @@ const Shipping = () => {
   const [pinCode, setPinCode] = useState(shippingInfo.pinCode);
   const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);
 
+  const countryItem = Country.getCountryByCode("IN");
+
   const shippingSubmit = (e) => {
     e.preventDefault();
 
@@ -37,12 +40,12 @@ const Shipping = () => {
 
   useEffect(() => {
     <div className="flex items-center justify-center w-full h-screen">
-    <Loader />
-  </div>
-  }, [])
+      <Loader />
+    </div>;
+  }, []);
   return (
     <>
-    <MetaData title="Shipping Details" />
+      <MetaData title="Shipping Details" />
       <div className="absolute top-0 w-full z-[1]  bg-bgColor flex flex-col items-center pt-7  pb-8 justify-start">
         <CheckoutSteps activeStep={0} />
         <div className="form bg-white/70 w-[40%] rounded-xl flex flex-col items-center justify-start pt-3  pb-7 mt-8">
@@ -75,21 +78,6 @@ const Shipping = () => {
               </div>
 
               <div className="w-full flex flex-col gap-[0.5]">
-                <label htmlFor="city" className="font-semibold">
-                  City
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter City"
-                  required
-                  id="city"
-                  value={city}
-                  className="w-full rounded-md p-2.5 outline-none border"
-                  onChange={(e) => setCity(e.target.value)}
-                />
-              </div>
-
-              <div className="w-full flex flex-col gap-[0.5]">
                 <label htmlFor="pinCode" className="font-semibold">
                   Pin Code
                 </label>
@@ -104,6 +92,20 @@ const Shipping = () => {
                 />
               </div>
 
+              <div className="w-full flex flex-col gap-[0.5]">
+                <label htmlFor="city" className="font-semibold">
+                  City
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter City"
+                  required
+                  id="city"
+                  value={city}
+                  className="w-full rounded-md p-2.5 outline-none border"
+                  onChange={(e) => setCity(e.target.value)}
+                />
+              </div>
               <div className="w-full flex flex-col gap-[0.5]">
                 <label htmlFor="phoneNo" className="font-semibold">
                   Phone Number
@@ -132,12 +134,11 @@ const Shipping = () => {
                   onChange={(e) => setCountry(e.target.value)}
                 >
                   <option value="">Select Country</option>
-                  {Country &&
-                    Country.getAllCountries().map((item) => (
-                      <option key={item.isoCode} value={item.isoCode}>
-                        {item.name}
-                      </option>
-                    ))}
+                  {Country && (
+                    <option value={countryItem.isoCode}>
+                      {countryItem.name}
+                    </option>
+                  )}
                 </select>
               </div>
 
