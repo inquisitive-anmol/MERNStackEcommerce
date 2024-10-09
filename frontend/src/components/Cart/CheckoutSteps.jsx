@@ -16,7 +16,7 @@ const CheckoutSteps = ({ activeStep }) => {
       icon: <LibraryAddCheckIcon />,
     },
     {
-      label: <Typography>Payment</Typography>,
+      label: <Typography>Order Placed</Typography>,
       icon: <AccountBalanceIcon />,
     },
   ];
@@ -26,7 +26,7 @@ const CheckoutSteps = ({ activeStep }) => {
   };
 
   return (
-    <div className=" w-full">
+    <div className="w-full mt-14 mb-6">
       <Stepper alternativeLabel activeStep={activeStep} style={stepStyles}>
         {steps.map((item, index) => (
           <Step

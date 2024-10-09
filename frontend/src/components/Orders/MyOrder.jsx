@@ -9,9 +9,11 @@ import { useAlert } from "react-alert";
 import { Typography } from '@mui/material';
 import MetaData from "../layout/MetaData";
 import LaunchIcon from '@mui/icons-material/Launch';
+import { useParams } from "react-router-dom";
 
 const MyOrders = () => {
   const dispatch = useDispatch();
+  const params = useParams();
 
   const alert = useAlert();
 

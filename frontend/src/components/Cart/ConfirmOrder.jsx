@@ -1,16 +1,24 @@
 import React from "react";
 import CheckoutSteps from "./CheckoutSteps";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layout/MetaData";
 import "./ConfirmOrder.css";
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useAlert } from "react-alert";
+import logo from "../../assets/images/logo.png";
+import axios from "axios";
+import { createOrder, clearErrors } from "../../reduxStore/actions/orderAction";
+import { useEffect } from "react";
 
-const ConfirmOrder = () => {
+const ConfirmOrder = ({ razorpayApiKey }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
+  const { error } = useSelector((state) => state.newOrder);
+  const alert = useAlert();
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.quantity * item.price,
@@ -25,18 +33,159 @@ const ConfirmOrder = () => {
 
   const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
 
-  const proceedToPayment = () => {
-    const data = {
+  const getOrderId = async (paymentData) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const { data } = await axios.post(
+        "http://localhost:4000/api/v1/payment/process",
+        paymentData,
+        { withCredentials: true },
+        config
+      );
+      if (data.success) {
+        return data;
+      } else {
+        throw new Error("Internal Server Error", 500);
+      }
+    } catch (error) {
+      alert.error(error.message);
+    }
+  };
+
+  const verifyPayment = async (response) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await axios.post(
+      "http://localhost:4000/api/v1/payment/verify",
+      response,
+      { withCredentials: true },
+      config
+    );
+    return data;
+  };
+
+  const proceedToPayment = async (e) => {
+    e.preventDefault();
+    console.log("button is working");
+    const orderData = {
       subtotal,
       shippingCharges,
       tax,
       totalPrice,
     };
+    // sessionStorage.setItem("orderInfo", JSON.stringify(orderData));
 
-    sessionStorage.setItem("orderInfo", JSON.stringify(data));
+    const paymentData = {
+      amount: Math.round(orderData.totalPrice * 100),
+    };
 
-    navigate("/process/payment");
+    const order = {
+      shippingInfo,
+      orderItems: cartItems,
+      itemsPrice: orderData.subtotal,
+      taxPrice: orderData.tax,
+      shippingPrice: orderData.shippingCharges,
+      totalPrice: orderData.totalPrice,
+    };
+
+    // navigate("/process/payment");
+    const orderId = await getOrderId(paymentData);
+    if (orderId) {
+      displayRazorpay(orderId, paymentData, order);
+    }
   };
+
+  function loadScript(src) {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  }
+
+  async function displayRazorpay(orderId, paymentData, order) {
+    try {
+      const res = await loadScript(
+        "https://checkout.razorpay.com/v1/checkout.js"
+      );
+
+      if (!res) {
+        throw new Error("Error in payment processing!");
+      }
+    } catch (cError) {
+      alert.error("Error in payment processing!");
+    }
+
+    const options = {
+      key: razorpayApiKey, 
+      amount: paymentData.amount, 
+      currency: "INR",
+      name: "Shoocart Enterprises",
+      description: "Test Transaction",
+      image: logo,
+      order_id: orderId.order_id, 
+      handler: function (response) {
+        handlePayResCreateOrder(orderId, paymentData, order, response);
+      },
+      prefill: {
+        name: user.name,
+        email: user.email,
+        contact: shippingInfo.phoneNo,
+      },
+      notes: {
+        address: shippingInfo.address,
+      },
+      theme: {
+        color: "#ff6f00",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+    paymentObject.on("payment.failed", function (response) {
+    });
+  }
+
+  const handlePayResCreateOrder = async (orderId, paymentData, order, response) => {
+    response.orderId = orderId.order_id;
+    const verifyData = await verifyPayment(response);
+    if (verifyData.success) {
+      order.paymentInfo = {
+        orderId: orderId.order_id,
+        razorpayPaymentId: response.razorpay_payment_id,
+        razorpayOrderId: response.razorpay_order_id,
+        status: "success"
+      }
+      dispatch(createOrder(order));
+     if(!error) {
+      alert.success("payment successful");
+      navigate("/success");
+     } else {
+      alert.error(error);
+     }
+    }
+  }
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error, alert]);
 
   return (
     <>

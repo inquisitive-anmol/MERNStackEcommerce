@@ -70,11 +70,12 @@ const UserOptions = ({ user }) => {
         onOpen={() => setOpen(true)}
         open={open}
         className="fixed top-16 right-3"
-        style={{ zIndex: "12" }}
+        style={{ zIndex: "12"}}
         icon={
           <img
             src={user.avatar.url ? user.avatar.url : "/profile.png"}
             alt="Profile"
+            className="w-full h-full object-cover rounded-full"
           />
         }
         direction="down"

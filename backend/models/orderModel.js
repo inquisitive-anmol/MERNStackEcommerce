@@ -60,7 +60,15 @@ const orderSchema = new mongoose.Schema({
         required: true,
     },
     paymentInfo: {
-        id: {
+        orderId: {
+            type: String,
+            required: true,
+        },
+        razorpayPaymentId: {
+            type: String,
+            required: true,
+        },
+        razorpayOrderId: {
             type: String,
             required: true,
         },
@@ -70,6 +78,7 @@ const orderSchema = new mongoose.Schema({
         },
         paidAt: {
             type: Date,
+            default: Date.now,
             required: true,
         },
        

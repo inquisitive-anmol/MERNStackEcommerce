@@ -18,6 +18,10 @@ import { addItemsToCart } from "../../reduxStore/actions/cartAction";
 
 const ProductDetail = () => {
   const [imgIndex, setImgIndex] = useState(0);
+  const { isAuthenticated } = useSelector(
+    (state) => state.user
+  );
+
 
   const { id } = useParams();
   const { error, loading, product } = useSelector(
@@ -159,9 +163,17 @@ const ProductDetail = () => {
               </div>
 
               <div className="cta-btns">
-                <button onClick={addToCartHandler} className="text-white px-20 py-2 bg-accentColor mt-8 rounded-3xl text-lg font-medium hover:bg-[#FF3C00]">
+               {
+                isAuthenticated ? (
+                  <button onClick={addToCartHandler} className="text-white px-20 py-2 bg-accentColor mt-8 rounded-3xl text-lg font-medium hover:bg-[#FF3C00]">
                   Add to Cart
                 </button>
+                ) : (
+                  <button onClick={() => alert.success("Login to Access Cart")} className="text-white px-20 py-2 bg-accentColor mt-8 rounded-3xl text-lg font-medium hover:bg-[#FF3C00]">
+                  Add to Cart
+                </button>
+                )
+               }
               </div>
               <p className="status">
                 <b

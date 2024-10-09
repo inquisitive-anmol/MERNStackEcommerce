@@ -1,17 +1,31 @@
-import React from "react";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import React, { useEffect } from "react";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import "./orderSuccess.css";
 import { Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import CheckoutSteps from "./CheckoutSteps";
+import MetaData from "../layout/MetaData";
+import { useSelector, useDispatch } from "react-redux";
+import { useAlert } from "react-alert";
 
 const OrderSuccess = () => {
-  return (
-    <div className="orderSuccess">
-      <CheckCircleIcon />
+  const { error } = useSelector((state) => state.newOrder);
+  const navigate = useNavigate();
 
-      <Typography>Your Order has been Placed successfully </Typography>
-      <Link to="/orders">View Orders</Link>
-    </div>
+  if (error) {
+    navigate("/order/failed");
+  }
+
+  return (
+    <>
+      <MetaData title="Order Placed" />
+      <CheckoutSteps activeStep={2} />
+      <div className="orderSuccess">
+        <CheckCircleIcon />
+        <Typography>Your Order has been Placed successfully </Typography>
+        <Link to="/orders">View Orders</Link>
+      </div>
+    </>
   );
 };
 

@@ -28,18 +28,18 @@ import OrderSuccess from "./components/Cart/OrderSuccess";
 import axios from "axios";
 import MyOrder from "./components/Orders/MyOrder";
 import OrderDetails from "./components/Orders/OrderDetails";
+import Payment from "./components/Cart/Payment";
+import OrderFailed from "./components/Cart/OrderFailed";
 
 const App = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
-  const [stripeApiKey, setStripeApiKey] = useState("");
+  const [razorpayApiKey, setRazorpayApiKey] = useState("");
 
-  async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/stripeapikey");
-
-    setStripeApiKey(data.stripeApiKey);
+  async function getRazorpayApiKey() {
+    const { data } = await axios.get("http://localhost:4000/api/v1/razorpayapikey", { withCredentials: true });
+    setRazorpayApiKey(data.razorpayApiKey);
   }
-
   useEffect(() => {
     webFont.load({
       google: {
@@ -49,7 +49,7 @@ const App = () => {
 
     store.dispatch(loadUser());
 
-    getStripeApiKey();
+    getRazorpayApiKey();
   }, []);
 
   return (
@@ -111,7 +111,7 @@ const App = () => {
           path="/order/confirm"
           element={
             <ProtectedRoute>
-              <ConfirmOrder />
+              <ConfirmOrder razorpayApiKey={razorpayApiKey} />
             </ProtectedRoute>
           }
         />
@@ -129,12 +129,15 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-
-        {/* <Route
-          component={
-            window.location.pathname === "/process/payment" ? null : NotFound
+        <Route
+          exact
+          path="/order/failed"
+          element={
+            <ProtectedRoute>
+              <OrderFailed />
+            </ProtectedRoute>
           }
-        /> */}
+        />
 
         <Route
           exact
@@ -154,6 +157,15 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        {/* <Route
+          exact
+          path="/process/payment"
+          element={
+            <ProtectedRoute>
+              <Payment />
+            </ProtectedRoute>
+          }
+        /> */}
       </Routes>
 
       <Footer />
@@ -162,4 +174,3 @@ const App = () => {
 };
 
 export default App;
-

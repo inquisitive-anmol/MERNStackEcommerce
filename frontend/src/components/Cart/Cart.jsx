@@ -15,7 +15,18 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.cart);
-  document.lala = cartItems;
+
+  const subtotal = cartItems.reduce(
+    (acc, item) => acc + item.quantity * item.price,
+    0
+  );
+
+
+  const shippingCharges = subtotal > 1000 ? 0 : 200;
+  const tax = subtotal * 0.18;
+  const totalPrice = subtotal + tax + shippingCharges;
+
+
   const increaseQuantity = (id, quantity, stock) => {
     const newQty = quantity + 1;
     if (stock <= quantity) {
@@ -83,22 +94,26 @@ const Cart = () => {
                 Summary
               </h2>
               {/* <div className="cupon"></div> */}
-              <div className="flex items-center mt-1 justify-between">
-                <p className="font-medium">Sub Total:</p>
-                <p>{cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)}</p>
+              <div className="flex items-center mt-3 justify-between">
+                <p className="font-medium">Subtotal:</p>
+                <p>Rs. {subtotal}</p>
               </div>
-              <div className="flex items-center mt-1 justify-between">
+              <div className="flex items-center mt-3 justify-between">
                 <p className="font-medium">Discount(0):</p>
-                <p>{0}</p>
+                <p>Rs. {0}</p>
               </div>
-              <div className="flex items-center mt-1 justify-between">
-                <p className="font-medium">Delivery Fee:</p>
-                <p>{0}</p>
+              <div className="flex items-center mt-3 justify-between">
+                <p className="font-medium">Shipping Charge:</p>
+                <p>Rs. {shippingCharges}</p>
+              </div>
+              <div className="flex items-center mt-3 justify-between">
+                <p className="font-medium">GST:</p>
+                <p>Rs. {tax}</p>
               </div>
 
               <div className="flex items-center justify-between border-t-2 mt-8 py-2 mb-4">
-                <p className="font-medium">Gross Total: </p>
-                <p>{cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)}</p>
+                <p className="font-medium">Total: </p>
+                <p>Rs. {totalPrice}</p>
               </div>
 
               <div className="checkout w-full flex items-center justify-center mb-6 mt-8">
