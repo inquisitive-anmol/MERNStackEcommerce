@@ -1,19 +1,17 @@
 import React, { Fragment, useEffect } from "react";
 import "./myOrder.css";
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid } from "@mui/x-data-grid";
 import { useSelector, useDispatch } from "react-redux";
 import { clearErrors, myOrders } from "../../reduxStore/actions/orderAction";
 import Loader from "../ui/Loader";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
-import { Typography } from '@mui/material';
+import { Typography } from "@mui/material";
 import MetaData from "../layout/MetaData";
-import LaunchIcon from '@mui/icons-material/Launch';
-import { useParams } from "react-router-dom";
+import LaunchIcon from "@mui/icons-material/Launch";
 
 const MyOrders = () => {
   const dispatch = useDispatch();
-  const params = useParams();
 
   const alert = useAlert();
 
@@ -29,7 +27,8 @@ const MyOrders = () => {
       minWidth: 150,
       flex: 0.5,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
+        console.log(params);
+        return params.value === "Delivered"
           ? "greenColor"
           : "redColor";
       },
@@ -59,7 +58,7 @@ const MyOrders = () => {
       sortable: false,
       renderCell: (params) => {
         return (
-          <Link to={`/order/${params.getValue(params.id, "id")}`}>
+          <Link to={`/order/${params.id}`}>
             <LaunchIcon />
           </Link>
         );
@@ -92,7 +91,9 @@ const MyOrders = () => {
       <MetaData title={`${user.name} - Orders`} />
 
       {loading ? (
-        <Loader />
+        <div className="flex items-center justify-center w-full h-screen">
+          <Loader />
+        </div>
       ) : (
         <div className="myOrdersPage">
           <DataGrid

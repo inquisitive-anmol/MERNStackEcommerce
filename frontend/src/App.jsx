@@ -26,7 +26,7 @@ import Shipping from "./components/Cart/Shipping";
 import ConfirmOrder from "./components/Cart/ConfirmOrder";
 import OrderSuccess from "./components/Cart/OrderSuccess";
 import axios from "axios";
-import MyOrder from "./components/Orders/MyOrder";
+import MyOrders from "./components/Orders/MyOrders";
 import OrderDetails from "./components/Orders/OrderDetails";
 import Payment from "./components/Cart/Payment";
 import OrderFailed from "./components/Cart/OrderFailed";
@@ -144,7 +144,7 @@ const App = () => {
           path="/orders"
           element={
             <ProtectedRoute>
-              <MyOrder />
+              <MyOrders />
             </ProtectedRoute>
           }
         />

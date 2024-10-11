@@ -1,39 +1,36 @@
 .myOrdersPage {
-    width: 100vw;
+    width: 100%;
     max-width: 100%;
-    padding: 0 7vmax;
+    padding: 0 6vmax;
     box-sizing: border-box;
-    background-color: rgb(235, 235, 235);
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
+    background-color: transparent;
+    height: calc(100vh - 70px);
     display: flex;
     flex-direction: column;
   }
   
   #myOrdersHeading {
     text-align: center;
-    font: 400 1.2vmax "Roboto";
+    font: 500 1.2vmax "Roboto";
     padding: 0.5vmax;
     box-sizing: border-box;
-    color: rgb(255, 255, 255);
+    color: rgb(231, 231, 231);
     transition: all 0.5s;
-    background-color: rgb(44, 44, 44);
+    background-color: rgb(35, 35, 35);
   }
   
   .myOrdersTable {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.848);
   }
   
   .myOrdersTable div {
     font: 300 1vmax "Roboto";
-    color: rgba(0, 0, 0, 0.678);
+    color: rgba(0, 0, 0, 0.778);
     border: none;
   }
   
   .myOrdersTable a {
-    color: rgba(0, 0, 0, 0.527);
+    color: rgba(0, 0, 0, 0.71);
     transition: all 0.5s;
   }
   
@@ -53,6 +50,13 @@
   
   .MuiDataGrid-iconSeparator {
     display: none !important;
+  }
+
+  .greenColor {
+    color: green !important;
+  }
+  .redColor {
+    color: red !important;
   }
   
   @media screen and (max-width: 600px) {

@@ -7,9 +7,11 @@ import { Typography } from '@mui/material';
 import { getOrderDetails, clearErrors } from "../../reduxStore/actions/orderAction";
 import Loader from "../ui/Loader";
 import { useAlert } from "react-alert";
+import { useParams } from "react-router-dom";
 
 const OrderDetails = ({ match }) => {
   const { order, error, loading } = useSelector((state) => state.orderDetails);
+  const params = useParams();
 
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -20,12 +22,14 @@ const OrderDetails = ({ match }) => {
       dispatch(clearErrors());
     }
 
-    dispatch(getOrderDetails(match.params.id));
-  }, [dispatch, alert, error, match.params.id]);
+    dispatch(getOrderDetails(params.id));
+  }, [dispatch, alert, error, params.id]);
   return (
     <Fragment>
       {loading ? (
-        <Loader />
+       <div className="flex items-center justify-center w-full h-screen">
+       <Loader />
+     </div>
       ) : (
         <Fragment>
           <MetaData title="Order Details" />
@@ -60,13 +64,13 @@ const OrderDetails = ({ match }) => {
                   <p
                     className={
                       order.paymentInfo &&
-                      order.paymentInfo.status === "succeeded"
+                      order.paymentInfo.status === "success"
                         ? "greenColor"
                         : "redColor"
                     }
                   >
                     {order.paymentInfo &&
-                    order.paymentInfo.status === "succeeded"
+                    order.paymentInfo.status === "success"
                       ? "PAID"
                       : "NOT PAID"}
                   </p>

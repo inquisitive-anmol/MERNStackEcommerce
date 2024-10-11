@@ -15,13 +15,17 @@ import Loader from "../ui/Loader";
 import ReviewCard from "../ui/ReviewCard";
 import MetaData from "../layout/MetaData";
 import { addItemsToCart } from "../../reduxStore/actions/cartAction";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from "@mui/material";
 
 const ProductDetail = () => {
   const [imgIndex, setImgIndex] = useState(0);
-  const { isAuthenticated } = useSelector(
-    (state) => state.user
-  );
-
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   const { id } = useParams();
   const { error, loading, product } = useSelector(
@@ -37,7 +41,7 @@ const ProductDetail = () => {
   const setImage = (idx) => setImgIndex(idx);
 
   const handleQuantity = (e) => {
-      setQuantity(Number(e.target.value));
+    setQuantity(Number(e.target.value));
   };
 
   const addToCartHandler = () => {
@@ -141,39 +145,42 @@ const ProductDetail = () => {
                 <label htmlFor="qty" className="mr-2">
                   Quantity:
                 </label>
-               {
-                product.stock ? (
+                {product.stock ? (
                   <select
-                  onChange={handleQuantity}
-                  value={quantity}
-                  className="rounded-xl px-3 py border-1 border-gray-300 outline-none"
-                  name="qty"
-                  id="qty"
-                >
-                  {[...Array(product.stock).keys()].map((num) => (
-                    <option value={num + 1} key={num + 1}>
-                      {num + 1}
-                    </option>
-                  ))}
-                </select>
+                    onChange={handleQuantity}
+                    value={quantity}
+                    className="rounded-xl px-3 py border-1 border-gray-300 outline-none"
+                    name="qty"
+                    id="qty"
+                  >
+                    {[...Array(product.stock).keys()].map((num) => (
+                      <option value={num + 1} key={num + 1}>
+                        {num + 1}
+                      </option>
+                    ))}
+                  </select>
                 ) : (
                   <p className="text-accentColor">Out of Stock</p>
-                )
-               }
+                )}
               </div>
 
               <div className="cta-btns">
-               {
-                isAuthenticated ? (
-                  <button onClick={addToCartHandler} className="text-white px-20 py-2 bg-accentColor mt-8 rounded-3xl text-lg font-medium hover:bg-[#FF3C00]">
-                  Add to Cart
-                </button>
+                {isAuthenticated ? (
+                  <button
+                    disabled={product.stock < 1 ? true : false}
+                    onClick={addToCartHandler}
+                    className="text-white px-20 py-2 bg-accentColor mt-8 rounded-3xl text-lg font-medium hover:bg-[#FF3C00]"
+                  >
+                    Add to Cart
+                  </button>
                 ) : (
-                  <button onClick={() => alert.success("Login to Access Cart")} className="text-white px-20 py-2 bg-accentColor mt-8 rounded-3xl text-lg font-medium hover:bg-[#FF3C00]">
-                  Add to Cart
-                </button>
-                )
-               }
+                  <button
+                    onClick={() => alert.success("Login to Access Cart")}
+                    className="text-white px-20 py-2 bg-accentColor mt-8 rounded-3xl text-lg font-medium hover:bg-[#FF3C00]"
+                  >
+                    Add to Cart
+                  </button>
+                )}
               </div>
               <p className="status">
                 <b
