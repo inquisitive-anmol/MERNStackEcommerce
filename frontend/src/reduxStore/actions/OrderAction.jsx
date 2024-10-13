@@ -93,9 +93,10 @@ export const updateOrder = (id, order) => async (dispatch) => {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true
     };
     const { data } = await axios.put(
-      `/api/v1/admin/order/${id}`,
+      `http://localhost:4000/api/v1/admin/order/${id}`,
       order,
       config
     );

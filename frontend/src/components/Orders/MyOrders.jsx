@@ -96,6 +96,7 @@ const MyOrders = () => {
         </div>
       ) : (
         <div className="myOrdersPage">
+            <Typography id="myOrdersHeading">My Orders</Typography>
           <DataGrid
             rows={rows}
             columns={columns}
@@ -105,7 +106,7 @@ const MyOrders = () => {
             autoHeight
           />
 
-          <Typography id="myOrdersHeading">{user.name}'s Orders</Typography>
+        
         </div>
       )}
     </Fragment>

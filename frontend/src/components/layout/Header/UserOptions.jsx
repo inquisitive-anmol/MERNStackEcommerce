@@ -41,7 +41,7 @@ const UserOptions = ({ user }) => {
   }
 
   function dashboard() {
-    navigate("/dashboard");
+    navigate("/admin/dashboard");
   }
 
   function orders() {
@@ -73,9 +73,9 @@ const UserOptions = ({ user }) => {
         style={{ zIndex: "12"}}
         icon={
           <img
-            src={user.avatar.url ? user.avatar.url : "/profile.png"}
+            src={user.avatar.url === "no url" ? "/images/profile.png" :  user.avatar.url}
             alt="Profile"
-            className="w-full h-full object-cover rounded-full"
+            className="w-full h-full object-cover rounded-full bg-bgColor"
           />
         }
         direction="down"

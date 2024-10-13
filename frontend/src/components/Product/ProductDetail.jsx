@@ -6,10 +6,10 @@ import {
   clearErrors,
   getAllProducts,
   getProductDetails,
+  newReview,
 } from "../../reduxStore/actions/productAction";
 import { useAlert } from "react-alert";
 import { useParams } from "react-router-dom";
-import ReactStars from "react-rating-stars-component";
 import FeaturedProduct from "../Product/FeaturedProduct";
 import Loader from "../ui/Loader";
 import ReviewCard from "../ui/ReviewCard";
@@ -21,22 +21,31 @@ import {
   DialogContent,
   DialogTitle,
   Button,
+  Rating,
 } from "@mui/material";
+import { NEW_REVIEW_RESET } from "../../reduxStore/constants/productsConstants";
 
 const ProductDetail = () => {
-  const [imgIndex, setImgIndex] = useState(0);
   const { isAuthenticated } = useSelector((state) => state.user);
-
   const { id } = useParams();
   const { error, loading, product } = useSelector(
-    (state) => state.productDetail
+    (state) => state.productDetails
+  );
+
+  const { success, error: reviewError } = useSelector(
+    (state) => state.newReview
   );
 
   const { products } = useSelector((state) => state.products);
   const alert = useAlert();
   const dispatch = useDispatch();
+  const params = useParams();
 
+  const [imgIndex, setImgIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
 
   const setImage = (idx) => setImgIndex(idx);
 
@@ -49,13 +58,27 @@ const ProductDetail = () => {
     alert.success("Item Added to Cart");
   };
 
+  const submitReviewToggle = () => {
+    open ? setOpen(false) : setOpen(true);
+  };
+
+  const reviewSubmitHandler = () => {
+    const myForm = new FormData();
+
+    myForm.set("rating", rating);
+    myForm.set("comment", comment);
+    myForm.set("productId", params.id);
+
+    dispatch(newReview(myForm));
+
+    setOpen(false);
+  };
+
   const options = {
-    edit: false,
-    color: "#333333",
-    activeColor: "#FF6F00",
     value: product.ratings,
-    isHalf: true,
-    size: window.innerWidth < 600 ? 20 : 25,
+readOnly: true,
+    size: "medium",
+    precision: 0.5,
   };
 
   useEffect(() => {
@@ -63,9 +86,18 @@ const ProductDetail = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
+    if (reviewError) {
+      alert.error(reviewError);
+      dispatch(clearErrors());
+    }
+
+    if (success) {
+      alert.success("Review submitted Successfully!");
+      dispatch({ type: NEW_REVIEW_RESET });
+    }
     dispatch(getProductDetails(id));
     dispatch(getAllProducts());
-  }, [dispatch, useParams, error, useAlert]);
+  }, [dispatch, useParams, error, useAlert, reviewError, success]);
 
   return (
     <>
@@ -110,11 +142,11 @@ const ProductDetail = () => {
                 {product.name}
               </p>
               <p className="rating mb-5 flex justify-start items-center border-b-1 border-gray-500">
-                <p>({product && product.ratings})</p>
+                <p className="text-black/60">({product && product.ratings})</p>
                 <p className="mx-2">
-                  <ReactStars {...options} />
+                  <Rating {...options} />
                 </p>
-                <p className="ml-1">({product.numOfReviews} Reviews)</p>
+                <p className="ml-1 text-black/45">({product.numOfReviews} Reviews)</p>
               </p>
 
               {product.size && product.size.length > 0 ? (
@@ -204,9 +236,44 @@ const ProductDetail = () => {
                 accusamus sit exercitationem!
               </p>
               <div className="give-review">
-                <button className="px-4 py-1 bg-bgColor border-accentColor border-2 mt-4 rounded-3xl text-sm font-normal">
+                <button
+                  onClick={submitReviewToggle}
+                  className="px-4 py-1 bg-bgColor border-accentColor border-2 mt-4 rounded-3xl text-sm font-normal hover:scale-110 transition-all ease-in-out "
+                >
                   Submit Review
                 </button>
+                <>
+                  <Dialog
+                    aria-labelledby="simple-dialog-title"
+                    open={open}
+                    onClose={submitReviewToggle}
+                  >
+                    <DialogTitle>Submit Review</DialogTitle>
+                    <DialogContent className="submitDialog flex flex-col">
+                      <Rating
+                        onChange={(e) => setRating(e.target.value)}
+                        value={rating}
+                        size="large"
+                      />
+
+                      <textarea
+                        className="submitDialogTextArea border-2 outline-none border-black/10 mt-2 px-2 py-1"
+                        cols="30"
+                        rows="5"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                      ></textarea>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={submitReviewToggle} color="secondary">
+                        Cancel
+                      </Button>
+                      <Button onClick={reviewSubmitHandler} color="primary">
+                        Submit
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </>
               </div>
             </div>
           </div>
@@ -221,7 +288,7 @@ const ProductDetail = () => {
           <div className="reviews flex flex-col justify-center items-center mt-14 w-full">
             <h1 className="font-semibold text-2xl text-textColor">Reviews</h1>
             <div className="w-[30%] h-px mt-2 mb-10 bg-black"></div>
-            <div className="">
+            <div className="mb-12">
               {product.reviews && product.reviews.length > 0 ? (
                 product.reviews.map((review, idx) => (
                   <ReviewCard
@@ -231,9 +298,9 @@ const ProductDetail = () => {
                   />
                 ))
               ) : (
-                <p className="text-gray-400 font-semibold text-lg">
-                  No Reviews Yet
-                </p>
+                  <p className="text-gray-400 font-semibold text-lg">
+                    No Reviews Yet
+                  </p>
               )}
             </div>
           </div>

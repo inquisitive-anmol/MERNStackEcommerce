@@ -28,8 +28,17 @@ import OrderSuccess from "./components/Cart/OrderSuccess";
 import axios from "axios";
 import MyOrders from "./components/Orders/MyOrders";
 import OrderDetails from "./components/Orders/OrderDetails";
-import Payment from "./components/Cart/Payment";
+// import Payment from "./components/Cart/Payment";
 import OrderFailed from "./components/Cart/OrderFailed";
+import Dashboard from "./components/Admin/Dashboard";
+import ProductList from "./components/Admin/ProductList";
+import UpdateProduct from "./components/Admin/UpdateProduct";
+import NewProduct from "./components/Admin/NewProduct";
+import OrderList from "./components/Admin/OrderList";
+import ProcessOrder from "./components/Admin/ProcessOrder";
+import UsersList from "./components/Admin/UsersList";
+import UpdateUser from "./components/Admin/UpdateUser";
+import ProductReviews from "./components/Admin/ProductReviews";
 
 const App = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -37,7 +46,10 @@ const App = () => {
   const [razorpayApiKey, setRazorpayApiKey] = useState("");
 
   async function getRazorpayApiKey() {
-    const { data } = await axios.get("http://localhost:4000/api/v1/razorpayapikey", { withCredentials: true });
+    const { data } = await axios.get(
+      "http://localhost:4000/api/v1/razorpayapikey",
+      { withCredentials: true }
+    );
     setRazorpayApiKey(data.razorpayApiKey);
   }
   useEffect(() => {
@@ -166,6 +178,96 @@ const App = () => {
             </ProtectedRoute>
           }
         /> */}
+
+        <Route
+          exact
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute isAdmin={true}>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+          />
+        <Route
+          exact
+          path="/admin/products"
+          element={
+            <ProtectedRoute >
+              <ProductList />
+              isAdmin={true}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/admin/product"
+          element={
+            <ProtectedRoute >
+              <NewProduct />
+              isAdmin={true}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/admin/product/:id"
+          element={
+            <ProtectedRoute >
+              <UpdateProduct />
+              isAdmin={true}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/admin/orders"
+          element={
+            <ProtectedRoute >
+              <OrderList />
+              isAdmin={true}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/admin/order/:id"
+          element={
+            <ProtectedRoute >
+              <ProcessOrder />
+              isAdmin={true}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/admin/users"
+          element={
+            <ProtectedRoute >
+              <UsersList />
+              isAdmin={true}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/admin/user/:id"
+          element={
+            <ProtectedRoute >
+              <UpdateUser />
+              isAdmin={true}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/admin/reviews"
+          element={
+            <ProtectedRoute >
+              <ProductReviews />
+              isAdmin={true}
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       <Footer />

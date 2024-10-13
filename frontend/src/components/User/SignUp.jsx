@@ -158,13 +158,13 @@ const SignUp = () => {
                     type="submit"
                     className="w-full h-full bg-accentColor rounded-xl mt-2 hover:bg-[#FF3C00] p-2 font-semibold text-lg text-white"
                   >
-                    Login
+                    Register
                   </button>
                 </div>
                 <div className="linkText mt-1.5 text-[15px]">
-                  Don't have an account?
-                  <Link to="/signup" className="text-blue-500 text-base">
-                    Register
+                   Have an account?
+                  <Link to="/login" className="text-blue-500 text-base">
+                    Login
                   </Link>
                 </div>
               </div>

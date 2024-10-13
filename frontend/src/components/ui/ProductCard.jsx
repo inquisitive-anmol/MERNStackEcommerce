@@ -1,17 +1,15 @@
 import React from "react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { Link } from "react-router-dom";
-import ReactStars from "react-rating-stars-component";
-
+import { Rating } from "@mui/material";
 const ProductCard = ({ product }) => {
   
+
   const options = {
-    edit: false,
-    color: "#333333",
-    activeColor: "#FF6F00",
     value: product.ratings,
-    isHalf: true,
-    size: window.innerWidth < 600 ? 20 : 25,
+readOnly: true,
+    size: "medium",
+    precision: 0.5,
   };
 
   return (
@@ -41,7 +39,7 @@ const ProductCard = ({ product }) => {
                 </p>
                 <p className="flex justify-center items-center gap-2">
                   <p>
-                    <ReactStars {...options}/>
+                    <Rating {...options}/>
                   </p>
                   <p>
                     <span className="font-medium">({product.numOfReviews})</span>

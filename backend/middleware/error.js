@@ -12,7 +12,7 @@ module.exports = (err, req, res, next) => {
 
   // Mongoose duplicate key error
   if (err.code === 11000) {
-    const message = `Duplicate ${Object.keys(err.keyValue)} value entered}`;
+    const message = `Duplicate ${Object.keys(err.keyValue)} value entered`;
     err = new ErrorHandler(message, 400);
   }
 
@@ -27,6 +27,7 @@ module.exports = (err, req, res, next) => {
     const message = `Json Web Token is Expired, Try again`;
     err = new ErrorHandler(message, 400);
   }
+
 
   res.status(err.statusCode).json({
     success: false,
