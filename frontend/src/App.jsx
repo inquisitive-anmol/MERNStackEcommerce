@@ -65,7 +65,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="w-full bg-bgColor">
+    <div className="w-full min-h-screen bg-bgColor">
       <div className="w-full h-[78px] flex justify-center items-center pt-3 pb-2">
         <Header />
       </div>

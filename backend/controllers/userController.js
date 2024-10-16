@@ -12,7 +12,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 
   let myCloud = {};
   if (req.body.avatar === "undefined") {
-    myCloud.public_id = "no Avatar uploaded";
+    myCloud.public_id = "no id";
     myCloud.secure_url = "no url";
   } else {
     myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
@@ -257,6 +257,7 @@ exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
 
 // Delete User -- Admin
 exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
+ 
   const user = await User.findById(req.params.id);
 
   if (!user) {
@@ -266,8 +267,9 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
   }
 
   const imageId = user.avatar.public_id;
+if(imageId !== "no id") {
   await cloudinary.v2.uploader.destroy(imageId);
-
+}
   const delUser = await User.findByIdAndDelete(req.params.id);
 
   res.status(200).json({

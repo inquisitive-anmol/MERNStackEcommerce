@@ -12,13 +12,13 @@ export default function SliderUi({ handler, value, label, minVal, maxVal, step }
       minValue={minVal}
       maxValue={maxVal}
       step={step}
-      formatOptions={label === "price" && { style: "currency", currency: "IND" }}
+      formatOptions={label === "price:" && { style: "currency", currency: "IND" }}
       classNames={{
         base: "max-w-md w-full gap-1",
         filler:
           "bg-gradient-to-r from-accentColor rounded-full to-secAccentColor dark:from-accentColor dark:to-secAccentColor",
-        label: "font-medium text-default-900 text-medium ml-1",
-        value: "font-medium text-default-700 text-small mr-1",
+        label: "font-medium text-default-900 md:text-[0.965rem] lg:text-medium lg:ml-1",
+        value: "lg:font-medium md:font-normal text-default-700 md:text-[0.765rem] lg:mr-1",
         track: "w-full border-none"
       }}
       tooltipProps={{

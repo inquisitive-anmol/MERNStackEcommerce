@@ -69,11 +69,15 @@ const UserOptions = ({ user }) => {
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         open={open}
-        className="fixed top-16 right-3"
-        style={{ zIndex: "12"}}
+        className="fixed top-3 right-5"
+        style={{ zIndex: "12" }}
         icon={
           <img
-            src={user.avatar.url === "no url" ? "/images/profile.png" :  user.avatar.url}
+            src={
+              user.avatar.url === "no url"
+                ? "/images/profile.png"
+                : user.avatar.url
+            }
             alt="Profile"
             className="w-full h-full object-cover rounded-full bg-bgColor"
           />

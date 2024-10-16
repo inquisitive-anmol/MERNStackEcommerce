@@ -3,13 +3,38 @@ import SideBar from "./SideBar";
 import "./Dashboard.css";
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-// import { Chart as ChartJS } from "chart.js";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
 import { Doughnut, Line } from "react-chartjs-2";
 import { useSelector, useDispatch } from "react-redux";
 import { getAdminProducts } from "../../reduxStore/actions/productAction";
 import { getAllOrders } from "../../reduxStore/actions/orderAction";
 import { getAllUsers } from "../../reduxStore/actions/userAction";
 import MetaData from "../layout/MetaData";
+
+// Register the necessary components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -19,7 +44,6 @@ const Dashboard = () => {
 
   const { users } = useSelector((state) => state.allUsers);
 
-  
   let outOfStock = 0;
 
   products &&
@@ -35,62 +59,42 @@ const Dashboard = () => {
       totalAmount += item.totalPrice;
     });
 
-  // const lineState = {
-  //   labels: ["Initial Amount", "Amount Earned"],
-  //   datasets: [
-  //     {
-  //       label: "TOTAL AMOUNT",
-  //       backgroundColor: ["tomato"],
-  //       hoverBackgroundColor: ["rgb(197, 72, 49)"],
-  //       data: [0, totalAmount],
-  //     },
-  //   ],
-  // };
+  const lineState = {
+    labels: ["Initial Amount", "Amount Earned"],
+    datasets: [
+      {
+        label: "TOTAL AMOUNT",
+        backgroundColor: ["tomato"],
+        hoverBackgroundColor: ["rgb(197, 72, 49)"],
+        data: [0, totalAmount],
+      },
+    ],
+  };
 
-  const doughnutState = {}
-
-  // products ? (
-  //   {
-  //     labels: ["Out of Stock", "InStock"],
-  //     datasets: [
-  //       {
-  //         backgroundColor: ["#00A6B4", "#6800B4"],
-  //         hoverBackgroundColor: ["#4B5000", "#35014F"],
-  //         data: [outOfStock, 0],
-  //       },
-  //     ],
-  //   }
-  // ) : (
-  //   {
-  //     labels: ["Out of Stock", "InStock"],
-  //     datasets: [
-  //       {
-  //         backgroundColor: ["#00A6B4", "#6800B4"],
-  //         hoverBackgroundColor: ["#4B5000", "#35014F"],
-  //         data: [outOfStock, products.length - outOfStock],
-  //       },
-  //     ],
-  //   }
-  // );
-
-  const data = {labels: ["Out of Stock", "InStock"],
-  datasets: [
-    {
-      label: '# of total',
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-       "#00A6B4", "#6800B4"
+  let doughnutState;
+  if (products && products.length > 0) {
+    doughnutState = {
+      labels: ["Out of Stock", "InStock"],
+      datasets: [
+        {
+          backgroundColor: ["#00A6B4", "#6800B4"],
+          hoverBackgroundColor: ["#4B5000", "#35014F"],
+          data: [outOfStock, products.length - outOfStock],
+        },
       ],
-      hoverBackgroundColor: ["#4B5000", "#35014F"],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)'
+    };
+  } else {
+    doughnutState = {
+      labels: ["Out of Stock", "InStock"],
+      datasets: [
+        {
+          backgroundColor: ["#00A6B4", "#6800B4"],
+          hoverBackgroundColor: ["#4B5000", "#35014F"],
+          data: [outOfStock, 10],
+        },
       ],
-      borderWidth: 1,
-    },
-  ],
-
-}
+    };
+  }
 
   useEffect(() => {
     dispatch(getAdminProducts());
@@ -128,13 +132,20 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* <div className="lineChart">
-          <Line data={lineState} />
-        </div> */}
-{/* 
+        <div className="lineChart">
+          <div>
+          <Line
+            data={lineState}
+            options={{ responsive: true, maintainAspectRatio: false }}
+          />
+          </div>
+        </div>
+
         <div className="doughnutChart">
-          <Doughnut data={data} />
-        </div> */}
+         <div>
+         <Doughnut data={doughnutState} options={{ responsive: true, maintainAspectRatio: false }} />
+         </div>
+        </div>
       </div>
     </div>
   );

@@ -45,13 +45,13 @@ const Header = () => {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <Brand logo={logo} className="flex items-center justify-center"/>
+          <Brand logo={logo} className="flex ml-4 sm:ml-0 items-center justify-center"/>
         </NavbarBrand>
       </NavbarContent>
 
       <NavbarContent
-        className="hidden sm:flex gap-5 text-primaryColor font-medium "
-        justify="center"
+        className="hidden sm:flex sm:ml-14 gap-5 text-primaryColor font-medium lg:flex lg:gap-8"
+        // justify="center"
       >
         <NavbarItem>
           <Link
@@ -79,7 +79,8 @@ const Header = () => {
           </Link>
         </NavbarItem>
       </NavbarContent>
-      <NavbarContent justify="evenly">
+      {/* justify="evenly" */}
+      <NavbarContent className="lg:flex lg:gap-5">
         <NavbarItem className="hidden lg:flex ml-10 mr-1 items-center">
           {/* <SearchField /> */}
           <Link to="/search">

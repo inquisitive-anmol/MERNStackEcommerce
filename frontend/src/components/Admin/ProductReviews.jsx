@@ -8,16 +8,17 @@ import {
   deleteReviews,
 } from "../../reduxStore/actions/productAction";
 import { useAlert } from "react-alert";
-import { Button } from '@mui/material';
+import { Button } from "@mui/material";
 import MetaData from "../layout/MetaData";
-import DeleteIcon from '@mui/icons-material/Delete';
-import StarIcon from '@mui/icons-material/Star';
+import DeleteIcon from "@mui/icons-material/Delete";
+import StarIcon from "@mui/icons-material/Star";
 import SideBar from "./SideBar";
 import { DELETE_REVIEW_RESET } from "../../reduxStore/constants/productsConstants";
+import { useNavigate } from "react-router-dom";
 
-const ProductReviews = ({ history }) => {
+const ProductReviews = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const alert = useAlert();
 
   const { error: deleteError, isDeleted } = useSelector(
@@ -55,10 +56,10 @@ const ProductReviews = ({ history }) => {
 
     if (isDeleted) {
       alert.success("Review Deleted Successfully");
-      history.push("/admin/reviews");
+      navigate("/admin/dashboard");
       dispatch({ type: DELETE_REVIEW_RESET });
     }
-  }, [dispatch, alert, error, deleteError, history, isDeleted, productId]);
+  }, [dispatch, alert, error, deleteError, navigate, isDeleted, productId]);
 
   const columns = [
     { field: "id", headerName: "Review ID", minWidth: 200, flex: 0.5 },
@@ -85,9 +86,8 @@ const ProductReviews = ({ history }) => {
       flex: 0.4,
 
       cellClassName: (params) => {
-        return params.getValue(params.id, "rating") >= 3
-          ? "greenColor"
-          : "redColor";
+        console.log(params);
+        return params.value >= 3 ? "!text-green-600" : "!text-red-600";
       },
     },
 
@@ -101,11 +101,7 @@ const ProductReviews = ({ history }) => {
       renderCell: (params) => {
         return (
           <>
-            <Button
-              onClick={() =>
-                deleteReviewHandler(params.getValue(params.id, "id"))
-              }
-            >
+            <Button onClick={() => deleteReviewHandler(params.id)}>
               <DeleteIcon />
             </Button>
           </>
@@ -140,7 +136,7 @@ const ProductReviews = ({ history }) => {
             <h1 className="productReviewsFormHeading">ALL REVIEWS</h1>
 
             <div>
-              <Star />
+              <StarIcon />
               <input
                 type="text"
                 placeholder="Product Id"

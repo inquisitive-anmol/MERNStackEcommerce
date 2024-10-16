@@ -29,11 +29,11 @@ const alert = useAlert();
   }
 
   return (
-    <div className='w-full'>
+    <div className='w-full min-h-screen'>
 
       <MetaData title="Shoocart" />
 
-      <div className='w-full h-auto'>
+      <div className='w-full'>
       <ImageSliderComponent imgHeightWidth={imgHeightWidth}/>
       </div>
 

@@ -106,7 +106,7 @@ const ProductList = () => {
 
   const rows = [];
 
-  products.length &&
+  products && products.length &&
     products.forEach((item) => {
       rows.push({
         id: item._id,

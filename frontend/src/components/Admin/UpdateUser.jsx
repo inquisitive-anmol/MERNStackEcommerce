@@ -35,7 +35,6 @@ const UpdateUser = () => {
   const [role, setRole] = useState("");
 
   const userId = params.id;
-console.log("userId: ", userId);
   useEffect(() => {
     if (user && user._id !== userId) {
       dispatch(getUserDetails(userId));
