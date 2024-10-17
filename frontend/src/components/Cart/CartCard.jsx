@@ -9,49 +9,49 @@ const CartCard = ({
   increaseQuantity,
 }) => {
   return (
-    <div className="w-full border-b-2 border-b-stone-200 justify-items-center grid grid-cols-5 justify-center py-2 mt-2 rounded">
+    <div className="w-full border-b-1 sm:border-b-2 border-b-stone-200 justify-items-center grid grid-cols-5 justify-center py-2 mt-2 rounded">
       <div className="img rounded-lg">
         <img
           src={item.image}
           alt=""
-          className="w-full rounded-lg h-24 min-h-24"
+          className="w-[80%] rounded-lg sm:h-24 sm:min-h-24 h-12"
         />
       </div>
-      <div className="name pt-2 text-black">
+      <div className="name pt-2 text-black text-[0.675rem] md:text-[1rem]">
         <Link to={`/product/${item.product}`}>{item.name}</Link>
       </div>
 
       <div className="flex text-black items-start justify-between pt-2">
-        <div className="rounded-3xl flex overflow-hidden border-2 bg-white">
-        <button
+        <div className="sm:rounded-3xl rounded-full flex overflow-hidden sm:border-2 border-1 bg-white">
+          <button
             onClick={(e) => decreaseQuantity(item.product, item.quantity)}
-            className="px-2 py-1 bg-bgColor hover:bg-stone-100 text-lg"
+            className="sm:px-2 sm:py-1 bg-bgColor hover:bg-stone-100 sm:text-lg p-1 text-[0.775rem] md:text-[1rem]"
           >
             -
           </button>
           <input
             type="number"
             readOnly
-            className="outline-none w-16 text-center text-lg"
+            className="outline-none w-4 sm:w-14 text-center text-[0.875rem] sm:text-lg"
             value={item.quantity}
           />
-           <button
+          <button
             onClick={(e) =>
               increaseQuantity(item.product, item.quantity, item.stock)
             }
-            className="px-2 py-1 bg-bgColor hover:bg-stone-100 text-lg"
+            className="sm:px-2 sm:py-1 bg-bgColor hover:bg-stone-100 sm:text-lg p-1 text-[0.775rem]"
           >
             +
           </button>
         </div>
       </div>
-      <div className="total text-black pt-2">
+      <div className="total text-black text-[0.675rem] md:text-[1rem] pt-2">
         <p>
           <p>Rs. {item.price * item.quantity}</p>
         </p>
       </div>
       <div
-        className="action text-black pt-2 w-fit h-fit"
+        className="action text-black pt-1 w-fit h-fit"
         onClick={(e) => deleteCartItems(item.product)}
       >
         <DeleteForeverSharpIcon className="cursor-pointer" />

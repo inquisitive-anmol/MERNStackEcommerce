@@ -80,79 +80,81 @@ const UpdateProfile = () => {
         </div>
       ) : (
         <>
-        <MetaData title="Update Profile" />
-        <div className="absolute top-0 z-13 w-full h-screen bg-bgColor flex items-start pt-8 justify-center">
-          <div className="form bg-white/70 w-[30%] h-[90%] rounded-xl flex flex-col items-center justify-start pt-8">
-            <div className="top flex flex-col items-center w-full">
-              <div className="logo">
-                <img src={logo} alt="logo" className=" w-20 h-20 " />
+          <MetaData title="Update Profile" />
+          <div className="absolute top-0 z-13 w-full min-h-screen bg-bgColor flex items-start pt-8 justify-center">
+            <div className="form mt-8 bg-white/70 w-[53vmax] sm:w-[60%] md:w-[48%] lg:w-[32%] h-[80%] rounded-xl flex flex-col items-center justify-start py-10">
+              <div className="top flex flex-col items-center w-full">
+                <div className="logo">
+                  <img src={logo} alt="logo" className=" w-20 h-20 " />
+                </div>
+                <p className="mainText font-bold text-lg mt-3">
+                  Update Profile
+                </p>
               </div>
-              <p className="mainText font-bold text-lg mt-3">Update Profile</p>
-            </div>
 
-            <form
-              action=""
-              className="w-full flex justify-center mt-7 px-7"
-              encType="multipart/form-data"
-              onSubmit={updateProfileSubmit}
-            >
-              <div className="w-full email flex flex-col gap-1 w-70%">
-                <label htmlFor="fullName" className="font-semibold">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  id="fullName"
-                  placeholder="Enter your Full Name"
-                  value={name}
-                  name="name"
-                  className="w-full rounded-md p-2.5 outline-none border"
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <label htmlFor="email" className="font-semibold">
-                  Email
-                </label>
-                <input
-                  type="text"
-                  id="email"
-                  placeholder="Enter your Email"
-                  value={email}
-                  name="email"
-                  className="w-full rounded-md p-2.5 outline-none border"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <div className="avatar flex items-center justify-center mt-2">
-                  <img
-                    src={avatarPreview}
-                    alt="Avatar Preview"
-                    className="h-16 w-16 object-cover rounded-full"
-                  />
+              <form
+                action=""
+                className="w-full flex justify-center mt-7 px-7"
+                encType="multipart/form-data"
+                onSubmit={updateProfileSubmit}
+              >
+                <div className="w-full email flex flex-col gap-1 w-70%">
+                  <label htmlFor="fullName" className="font-semibold">
+                    Full Name
+                  </label>
                   <input
-                    type="file"
-                    name="avatar"
-                    accept="image/*"
-                    onChange={updateProfileDataChange}
-                    className="w-full text-sm text-slate-500 block  file:mr-4 file:py-2 file:px-4
+                    type="text"
+                    id="fullName"
+                    placeholder="Enter your Full Name"
+                    value={name}
+                    name="name"
+                    className="w-full rounded-md p-2.5 outline-none border"
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <label htmlFor="email" className="font-semibold">
+                    Email
+                  </label>
+                  <input
+                    type="text"
+                    id="email"
+                    placeholder="Enter your Email"
+                    value={email}
+                    name="email"
+                    className="w-full rounded-md p-2.5 outline-none border"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+
+                  <div className="avatar flex items-center justify-center mt-2">
+                    <img
+                      src={avatarPreview}
+                      alt="Avatar Preview"
+                      className="h-16 w-16 object-cover rounded-full"
+                    />
+                    <input
+                      type="file"
+                      name="avatar"
+                      accept="image/*"
+                      onChange={updateProfileDataChange}
+                      className="w-full text-sm text-slate-500 block  file:mr-4 file:py-2 file:px-4
                       file:rounded-full file:border-0
                       file:text-sm file:font-semibold
                     file:bg-violet-50 file:text-violet-700
                       file:cursor-pointer
                     hover:file:bg-violet-100"
-                  />
+                    />
+                  </div>
+                  <div className="cta">
+                    <button
+                      type="submit"
+                      className="w-full h-full bg-accentColor rounded-xl mt-2 hover:bg-[#FF3C00] p-2 font-semibold text-lg text-white"
+                    >
+                      Update
+                    </button>
+                  </div>
                 </div>
-                <div className="cta">
-                  <button
-                    type="submit"
-                    className="w-full h-full bg-accentColor rounded-xl mt-2 hover:bg-[#FF3C00] p-2 font-semibold text-lg text-white"
-                  >
-                    Update
-                  </button>
-                </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
         </>
       )}
     </>

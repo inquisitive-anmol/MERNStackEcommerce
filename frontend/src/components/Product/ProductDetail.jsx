@@ -23,6 +23,7 @@ import {
   Button,
   Rating,
 } from "@mui/material";
+import { useLocation } from "react-router-dom";
 import { NEW_REVIEW_RESET } from "../../reduxStore/constants/productsConstants";
 
 const ProductDetail = () => {
@@ -35,6 +36,9 @@ const ProductDetail = () => {
   const { success, error: reviewError } = useSelector(
     (state) => state.newReview
   );
+
+  const location = useLocation();
+  const pathName = location.pathname;
 
   const { products } = useSelector((state) => state.products);
   const alert = useAlert();
@@ -97,7 +101,7 @@ readOnly: true,
     }
     dispatch(getProductDetails(id));
     dispatch(getAllProducts());
-  }, [dispatch, useParams, error, useAlert, reviewError, success]);
+  }, [dispatch, useParams, error, useAlert, reviewError, success, pathName]);
 
   return (
     <>
@@ -108,9 +112,9 @@ readOnly: true,
       ) : (
         <div className="w-full">
           <MetaData title={`${product.name} -- Shoocart`} />
-          <div className="w-full flex items-center justify-center p-1 mt-8">
-            <div className="left w-[50%] flex items-start justify-center gap-2">
-              <div className="img-b1 flex flex-col gap-2 items-center justify-start">
+          <div className="w-full flex flex-col md:flex-row items-center justify-center p-1 mt-8">
+            <div className="left md:w-[50%] md:flex-row flex items-start justify-center md:gap-3 gap-4 flex-col-reverse">
+              <div className="img-b1 flex md:flex-col gap-2 items-center md:justify-start px-4">
                 {product.images &&
                   product.images.map((image, idx) => (
                     <AnimatedLoadingImage
@@ -136,7 +140,7 @@ readOnly: true,
             </div>
 
             {/* right section */}
-            <div className="right w-[50%] pl-10 pr-8">
+            <div className="right md:w-[50%] md:pl-10 md:pr-8 px-8 py-8">
               <p className="vendor">seller</p>
               <p className="name text-black font-medium text-4xl text-wrap">
                 {product.name}
@@ -288,7 +292,7 @@ readOnly: true,
           <div className="reviews flex flex-col justify-center items-center mt-14 w-full">
             <h1 className="font-semibold text-2xl text-textColor">Reviews</h1>
             <div className="w-[30%] h-px mt-2 mb-10 bg-black"></div>
-            <div className="mb-12">
+            <div className="mb-12 flex items-center justify-evenly flex-wrap">
               {product.reviews && product.reviews.length > 0 ? (
                 product.reviews.map((review, idx) => (
                   <ReviewCard

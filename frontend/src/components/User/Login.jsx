@@ -48,9 +48,9 @@ const Login = () => {
           <Loader />
         </div>
       ) : (
-        <div className="absolute top-0 z-13 w-full h-screen bg-bgColor flex items-start pt-8 justify-center">
+        <div className="absolute top-0 z-13 w-full min-h-screen bg-bgColor flex items-start pt-8 justify-center">
           <MetaData title={`Login to Shoocart`} />
-          <div className="form bg-white/70 w-[30%] h-[80%] rounded-xl flex flex-col items-center justify-start pt-10">
+          <div className="form mt-8 bg-white/70 w-[53vmax] sm:w-[60%] md:w-[48%] lg:w-[32%] h-[80%] rounded-xl flex flex-col items-center justify-start py-10">
             <div className="top flex flex-col items-center w-full">
               <div className="logo">
                 <img src={logo} alt="logo" className=" w-20 h-20 " />

@@ -79,10 +79,8 @@ const Header = () => {
           </Link>
         </NavbarItem>
       </NavbarContent>
-      {/* justify="evenly" */}
       <NavbarContent className="lg:flex lg:gap-5">
-        <NavbarItem className="hidden lg:flex ml-10 mr-1 items-center">
-          {/* <SearchField /> */}
+        <NavbarItem className="lg:flex ml-10 mr-1 items-center">
           <Link to="/search">
           <IoSearch
             strokeWidth={2}
@@ -103,10 +101,12 @@ const Header = () => {
         )}
         {isAuthenticated && (
           <NavbarItem className="hidden lg:flex ml-1 mr-1 items-center">
-            <RiAccountCircleLine
+           <Link to="/account">
+           <RiAccountCircleLine
               strokeWidth={0.5}
               className="text-textColor opacity-[.9] hover:opacity-[1] cursor-pointer text-3xl font-semibold"
             />
+           </Link>
           </NavbarItem>
         )}
         {/* <NavbarItem className="hidden lg:flex">    color={"#727472"}

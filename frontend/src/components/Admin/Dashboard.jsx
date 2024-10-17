@@ -118,16 +118,16 @@ const Dashboard = () => {
           </div>
           <div className="dashboardSummaryBox2">
             <Link to="/admin/products">
-              <p>Product</p>
-              <p>{products && products.length}</p>
+              <p className="text-[0.775rem] md:text-[1.1rem]">Product</p>
+              <p className="text-[0.775rem] md:text-[1.1rem]">{products && products.length}</p>
             </Link>
             <Link to="/admin/orders">
-              <p>Orders</p>
-              <p>{orders && orders.length}</p>
+              <p className="text-[0.775rem] md:text-[1.1rem]">Orders</p>
+              <p className="text-[0.775rem] md:text-[1.1rem]">{orders && orders.length}</p>
             </Link>
             <Link to="/admin/users">
-              <p>Users</p>
-              <p>{users && users.length}</p>
+              <p className="text-[0.775rem] md:text-[1.1rem]">Users</p>
+              <p className="text-[0.775rem] md:text-[1.1rem]">{users && users.length}</p>
             </Link>
           </div>
         </div>
