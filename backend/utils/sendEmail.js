@@ -1,27 +1,44 @@
-const nodeMailer = require("nodemailer");
+const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
+
 
 const sendEmail = async (options) => {
     
-const transporter = nodeMailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    service: process.env.SMTP_SERVICE,
+    const OAuth2 = google.auth.OAuth2;
+
+  const oauth2Client = new OAuth2(
+    process.env.OAUTH_CLIENT_ID,
+    process.env.OAUTH_CLIENT_SECRET,
+    "https://developers.google.com/oauthplayground"
+  );
+
+  oauth2Client.setCredentials({
+    refresh_token: process.env.OAUTH_REFRESH_TOKEN
+  });
+
+  const accessToken = oauth2Client.getAccessToken();
+  
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
     auth: {
-        user: process.env.SMTP_MAIL,
-        pass: process.env.SMTP_PASSWORD,
+      type: 'OAuth2',
+      user: process.env.EMAIL, // Your Gmail address
+      clientId: process.env.CLIENT_ID, // Google Client ID
+      clientSecret: process.env.CLIENT_SECRET, // Google Client Secret
+      refreshToken: process.env.REFRESH_TOKEN, // OAuth2 Refresh Token
+      accessToken: process.env.OUATH_ACCESS_TOKEN // Access token generated
     }
-});
+  });
 
-const mailOptions = {
-    from: process.env.SMTP_MAIL,
-    to: options.email,
-    subject: options.subject,
-    text: options.message
-};
+  const mailOptions = {
+    from: process.env.EMAIL, // Sender address
+    to: options.email, // Recipient email address
+    subject: options.subject, // Subject
+    text: options.message, // Plain text message
+    // html: '<h1>Order Confirmation</h1><p>Your order has been successfully placed.</p>',
+  }
 
-
-await transporter.sendMail(mailOptions);
-
+const result = await transporter.sendMail(mailOptions);
 
 };
 

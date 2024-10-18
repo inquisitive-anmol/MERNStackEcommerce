@@ -19,9 +19,10 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-fileupload": "^1.5.1",
+    "googleapis": "^144.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.2",
-    "nodemailer": "^6.9.14",
+    "nodemailer": "^6.9.15",
     "razorpay": "^2.9.4",
     "react-simple-image-slider": "^2.4.1",
     "validator": "^13.12.0"

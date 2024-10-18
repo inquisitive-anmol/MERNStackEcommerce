@@ -6,6 +6,7 @@ const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const cloudinary = require("cloudinary");
 
+
 // Register User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -95,9 +96,10 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      message: `Reset password email sent to ${user.email} successfully`,
+      message: `Email sent to ${user.email} successfully`,
     });
   } catch (error) {
+    console.log("error: ", error);
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
 
@@ -130,7 +132,7 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   }
 
   if (req.body.password !== req.body.confirmPassword) {
-    return next(new ErrorHandler("Password does not mathc Confirm Password"));
+    return next(new ErrorHandler("Password does not match Confirm Password"));
   }
 
   user.password = req.body.password;
@@ -277,3 +279,34 @@ if(imageId !== "no id") {
     message: "User Deleted Successfully",
   });
 });
+
+// setting OAuth for sending emails
+// const sttingOAuth = catchAsyncErrors(async (req, res, next) => {
+//   const OAuth2 = google.auth.OAuth2;
+
+//   const oauth2Client = new OAuth2(
+//     process.env.OAUTH_CLIENT_ID,
+//     process.env.OAUTH_CLIENT_SECRET,
+//     "https://developers.google.com/oauthplayground"
+//   );
+
+//   oauth2Client.setCredentials({
+//     refresh_token: process.env.OAUTH_REFRESH_TOKEN
+//   });
+
+//   const accessToken = oauth2Client.getAccessToken();
+  
+//   const transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//       type: 'OAuth2',
+//       user: process.env.EMAIL, // Your Gmail address
+//       clientId: process.env.CLIENT_ID, // Google Client ID
+//       clientSecret: process.env.CLIENT_SECRET, // Google Client Secret
+//       refreshToken: process.env.REFRESH_TOKEN, // OAuth2 Refresh Token
+//       accessToken: accessToken // Access token generated
+//     }
+//   });
+
+//   return transporter;
+// })
