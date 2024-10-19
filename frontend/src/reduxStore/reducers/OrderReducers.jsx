@@ -21,7 +21,7 @@ import {
     ORDER_DETAILS_SUCCESS,
     ORDER_DETAILS_FAIL,
     CLEAR_ERRORS,
-  } from "../reduxStore/constants/orderConstants";
+  } from "../constants/orderConstants";
   
   // New Order
   export const newOrderReducer = (state = {}, action) => {
