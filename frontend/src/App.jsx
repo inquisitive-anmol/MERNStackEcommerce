@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "./components/layout/Header/Header";
 import { Route, Routes } from "react-router-dom";
 import webFont from "webfontloader";
-import Footer from "./components/layout/Footer/footer";
+import Footer from "./components/layout/Footer/Footer";
 import Home from "./components/Home/Home";
 import About from "./components/About/About";
 import Contact from "./components/Contact/Contact";
@@ -39,6 +39,7 @@ import ProcessOrder from "./components/Admin/ProcessOrder";
 import UsersList from "./components/Admin/UsersList";
 import UpdateUser from "./components/Admin/UpdateUser";
 import ProductReviews from "./components/Admin/ProductReviews";
+import NotFound from "./components/layout/NotFound/NotFound";
 
 const App = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -187,12 +188,12 @@ const App = () => {
               <Dashboard />
             </ProtectedRoute>
           }
-          />
+        />
         <Route
           exact
           path="/admin/products"
           element={
-            <ProtectedRoute >
+            <ProtectedRoute>
               <ProductList />
               isAdmin={true}
             </ProtectedRoute>
@@ -202,7 +203,7 @@ const App = () => {
           exact
           path="/admin/product"
           element={
-            <ProtectedRoute >
+            <ProtectedRoute>
               <NewProduct />
               isAdmin={true}
             </ProtectedRoute>
@@ -212,7 +213,7 @@ const App = () => {
           exact
           path="/admin/product/:id"
           element={
-            <ProtectedRoute >
+            <ProtectedRoute>
               <UpdateProduct />
               isAdmin={true}
             </ProtectedRoute>
@@ -222,7 +223,7 @@ const App = () => {
           exact
           path="/admin/orders"
           element={
-            <ProtectedRoute >
+            <ProtectedRoute>
               <OrderList />
               isAdmin={true}
             </ProtectedRoute>
@@ -232,7 +233,7 @@ const App = () => {
           exact
           path="/admin/order/:id"
           element={
-            <ProtectedRoute >
+            <ProtectedRoute>
               <ProcessOrder />
               isAdmin={true}
             </ProtectedRoute>
@@ -242,7 +243,7 @@ const App = () => {
           exact
           path="/admin/users"
           element={
-            <ProtectedRoute >
+            <ProtectedRoute>
               <UsersList />
               isAdmin={true}
             </ProtectedRoute>
@@ -252,7 +253,7 @@ const App = () => {
           exact
           path="/admin/user/:id"
           element={
-            <ProtectedRoute >
+            <ProtectedRoute>
               <UpdateUser />
               isAdmin={true}
             </ProtectedRoute>
@@ -262,12 +263,14 @@ const App = () => {
           exact
           path="/admin/reviews"
           element={
-            <ProtectedRoute >
+            <ProtectedRoute>
               <ProductReviews />
               isAdmin={true}
             </ProtectedRoute>
           }
         />
+
+        <Route Component={NotFound} />
       </Routes>
 
       <Footer />
