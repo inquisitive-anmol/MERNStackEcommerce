@@ -11,7 +11,7 @@ import {
 } from "../../reduxStore/actions/orderAction";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../ui/Loader";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import { Button } from '@mui/material';
 import { UPDATE_ORDER_RESET } from "../../reduxStore/constants/orderConstants";
@@ -22,7 +22,6 @@ const ProcessOrder = () => {
   const { error: updateError, isUpdated } = useSelector((state) => state.order);
   const params = useParams();
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   const [status, setStatus] = useState("");
 
@@ -38,20 +37,20 @@ const ProcessOrder = () => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
     if (updateError) {
-      alert.error(updateError);
+      toast.error(updateError);
       dispatch(clearErrors());
     }
     if (isUpdated) {
-      alert.success("Order Updated Successfully");
+      toast.success("Order Updated Successfully");
       dispatch({ type: UPDATE_ORDER_RESET });
     }
 
     dispatch(getOrderDetails(params.id));
-  }, [dispatch, alert, error, params.id, isUpdated, updateError]);
+  }, [dispatch, toast, error, params.id, isUpdated, updateError]);
 
   return (
     <>

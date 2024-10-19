@@ -8,7 +8,7 @@ import {
   resetPassword,
   loadUser,
 } from "../../reduxStore/actions/userAction";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import Loader from "../ui/Loader";
 import { useNavigate, useLocation } from "react-router-dom";
 import { UPDATE_PASSWORD_RESET } from "../../reduxStore/constants/userConstants";
@@ -18,7 +18,6 @@ import { useParams } from "react-router-dom";
 const ResetPassword = () => {
   const { token } = useParams();
   const dispatch = useDispatch();
-  const alert = useAlert();
   const navigate = useNavigate();
 
   const { error, loading, success } = useSelector(
@@ -40,15 +39,15 @@ const ResetPassword = () => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (success) {
-      alert.success("Password Reset Successfully");
+      toast.success("Password Reset Successfully");
       navigate("/login", { replace: true });
     }
-  }, [dispatch, error, alert, navigate, success, token]);
+  }, [dispatch, error, toast, navigate, success, token]);
 
   return (
     <>

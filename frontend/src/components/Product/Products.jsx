@@ -7,7 +7,7 @@ import {
 import Loader from "../ui/Loader";
 import ProductCard from "../ui/ProductCard";
 import { useParams } from "react-router-dom";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import PaginationUi from "../ui/PaginationUi";
 import FilterUi from "../ui/FilterUi";
 import MetaData from "../layout/MetaData";
@@ -33,7 +33,7 @@ const Products = () => {
     setRatings(newRating);
   };
 
-  const alert = useAlert();
+
   const dispatch = useDispatch();
 
   const { loading, products, error, productsCount, resultPerPage } =
@@ -49,11 +49,11 @@ const Products = () => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
     dispatch(getAllProducts(keyword, currentPage, price, category, ratings));
-  }, [dispatch, keyword, currentPage, price, category, ratings, error, alert]);
+  }, [dispatch, keyword, currentPage, price, category, ratings, error, toast]);
 
   return (
     <>

@@ -5,13 +5,12 @@ import {
   clearErrors,
   forgotPassword,
 } from "../../reduxStore/actions/userAction";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import Loader from "../ui/Loader";
 import MetaData from "../layout/MetaData";
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   const { error, loading, message } = useSelector(
     (state) => state.forgotPassword
@@ -30,13 +29,13 @@ const ForgotPassword = () => {
 
   useEffect(() => {
     if (message) {
-      alert.success(message);
+      toast.success(message);
     }
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch, error, alert, message]);
+  }, [dispatch, error, toast, message]);
 
   return (
     <>

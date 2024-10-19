@@ -8,7 +8,7 @@ import {
   deleteProduct,
 } from "../../reduxStore/actions/productAction";
 import { Link, useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import { Button } from '@mui/material';
 import MetaData from "../layout/MetaData";
 import EditIcon from '@mui/icons-material/Edit';
@@ -20,7 +20,6 @@ const ProductList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const alert = useAlert();
 
   const { error, products } = useSelector((state) => state.products);
 
@@ -34,23 +33,23 @@ const ProductList = () => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (deleteError) {
-      alert.error(deleteError);
+      toast.error(deleteError);
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
-      alert.success("Product Deleted Successfully");
+      toast.success("Product Deleted Successfully");
       navigate("/admin/dashboard");
       dispatch({ type: DELETE_PRODUCT_RESET });
     }
 
     dispatch(getAdminProducts());
-  }, [dispatch, alert, error, deleteError, navigate, isDeleted]);
+  }, [dispatch, toast, error, deleteError, navigate, isDeleted]);
 
   const columns = [
     { field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5 },

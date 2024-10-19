@@ -5,7 +5,7 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../reduxStore/actions/userAction";
 import LocalMallRoundedIcon from "@mui/icons-material/LocalMallRounded";
@@ -15,7 +15,6 @@ const UserOptions = ({ user }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   const options = [
     { icon: <ListAltIcon />, name: "Orders", func: orders },
@@ -58,7 +57,7 @@ const UserOptions = ({ user }) => {
 
   function logoutUser() {
     dispatch(logout());
-    alert.success("Logout Successfully!");
+    toast.success("Logout Successfully!");
   }
 
   return (

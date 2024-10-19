@@ -8,7 +8,7 @@ import {
   getProductDetails,
   newReview,
 } from "../../reduxStore/actions/productAction";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import { useParams } from "react-router-dom";
 import FeaturedProduct from "../Product/FeaturedProduct";
 import Loader from "../ui/Loader";
@@ -41,7 +41,6 @@ const ProductDetail = () => {
   const pathName = location.pathname;
 
   const { products } = useSelector((state) => state.products);
-  const alert = useAlert();
   const dispatch = useDispatch();
   const params = useParams();
 
@@ -59,7 +58,7 @@ const ProductDetail = () => {
 
   const addToCartHandler = () => {
     dispatch(addItemsToCart(id, quantity));
-    alert.success("Item Added to Cart");
+    toast.success("Item Added to Cart");
   };
 
   const submitReviewToggle = () => {
@@ -87,21 +86,21 @@ readOnly: true,
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
     if (reviewError) {
-      alert.error(reviewError);
+      toast.error(reviewError);
       dispatch(clearErrors());
     }
 
     if (success) {
-      alert.success("Review submitted Successfully!");
+      toast.success("Review submitted Successfully!");
       dispatch({ type: NEW_REVIEW_RESET });
     }
     dispatch(getProductDetails(id));
     dispatch(getAllProducts());
-  }, [dispatch, useParams, error, useAlert, reviewError, success, pathName]);
+  }, [dispatch, useParams, error, reviewError, success, pathName]);
 
   return (
     <>
@@ -211,7 +210,7 @@ readOnly: true,
                   </button>
                 ) : (
                   <button
-                    onClick={() => alert.success("Login to Access Cart")}
+                    onClick={() => toast.success("Login to Access Cart")}
                     className="text-white px-20 py-2 bg-accentColor mt-8 rounded-3xl text-lg font-medium hover:bg-[#FF3C00]"
                   >
                     Add to Cart

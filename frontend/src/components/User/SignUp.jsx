@@ -3,7 +3,7 @@ import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import { clearErrors, register } from "../../reduxStore/actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import Loader from "../ui/Loader";
 import { useNavigate, useLocation } from "react-router-dom";
 import MetaData from "../layout/MetaData";
@@ -12,7 +12,6 @@ const SignUp = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   const from = location.state?.from || "/account";
   const [avatar, setAvatar] = useState();
@@ -60,14 +59,14 @@ const SignUp = () => {
   useEffect(() => {
     if (error) {
       console.log(error);
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (isAuthenticated) {
       navigate(from, { replace: true });
     }
-  }, [dispatch, error, alert, navigate, isAuthenticated]);
+  }, [dispatch, error, toast, navigate, isAuthenticated]);
 
   return (
     <>

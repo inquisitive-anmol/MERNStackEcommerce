@@ -5,17 +5,16 @@ import { Typography } from "@mui/material";
 import MetaData from "../layout/MetaData";
 import { useSelector, useDispatch } from "react-redux";
 import CheckoutSteps from "./CheckoutSteps";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import { clearErrors } from "../../reduxStore/actions/orderAction";
 
 const OrderFailed = () => {
   const { error } = useSelector((state) => state.newOrder);
-  const alert = useAlert();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
   }, [ error, dispatch]);

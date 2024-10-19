@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./orderDetails.css";
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layout/MetaData";
@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Typography } from '@mui/material';
 import { getOrderDetails, clearErrors } from "../../reduxStore/actions/orderAction";
 import Loader from "../ui/Loader";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import { useParams } from "react-router-dom";
 
 const OrderDetails = ({ match }) => {
@@ -14,24 +14,23 @@ const OrderDetails = ({ match }) => {
   const params = useParams();
 
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     dispatch(getOrderDetails(params.id));
-  }, [dispatch, alert, error, params.id]);
+  }, [dispatch, toast, error, params.id]);
   return (
-    <Fragment>
+    <>
       {loading ? (
        <div className="flex items-center justify-center w-full h-screen">
        <Loader />
      </div>
       ) : (
-        <Fragment>
+        <>
           <MetaData title="Order Details" />
           <div className="orderDetailsPage">
             <div className="orderDetailsContainer">
@@ -117,9 +116,9 @@ const OrderDetails = ({ match }) => {
               </div>
             </div>
           </div>
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };
 

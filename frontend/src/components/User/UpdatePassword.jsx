@@ -8,7 +8,7 @@ import {
   updatePassword,
   loadUser,
 } from "../../reduxStore/actions/userAction";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import Loader from "../ui/Loader";
 import { useNavigate, useLocation } from "react-router-dom";
 import { UPDATE_PASSWORD_RESET } from "../../reduxStore/constants/userConstants";
@@ -16,7 +16,6 @@ import MetaData from "../layout/MetaData";
 
 const UpdatePassword = () => {
   const dispatch = useDispatch();
-  const alert = useAlert();
   const navigate = useNavigate();
 
   const { error, loading, isUpdated } = useSelector((state) => state.profile);
@@ -39,19 +38,19 @@ const UpdatePassword = () => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (isUpdated) {
-      alert.success("Password Changed Successfully");
+      toast.success("Password Changed Successfully");
       dispatch(loadUser());
       navigate("/account", { replace: true });
       dispatch({
         type: UPDATE_PASSWORD_RESET,
       });
     }
-  }, [dispatch, error, alert, navigate, isUpdated]);
+  }, [dispatch, error, toast, navigate, isUpdated]);
 
   return (
     <>

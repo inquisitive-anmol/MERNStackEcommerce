@@ -6,7 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import CheckoutSteps from "./CheckoutSteps";
 import MetaData from "../layout/MetaData";
 import { useSelector, useDispatch } from "react-redux";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
+
 
 const OrderSuccess = () => {
   const { error } = useSelector((state) => state.newOrder);

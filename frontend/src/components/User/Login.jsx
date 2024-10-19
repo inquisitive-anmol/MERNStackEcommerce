@@ -5,7 +5,7 @@ import { FaRegEye } from "react-icons/fa6";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login } from "../../reduxStore/actions/userAction";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import Loader from "../ui/Loader";
 import { useNavigate, useLocation } from "react-router-dom";
 import MetaData from "../layout/MetaData";
@@ -14,7 +14,6 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   const redirect = location.state?.from || "/account";
   
@@ -24,14 +23,14 @@ const Login = () => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (isAuthenticated) {
       navigate(redirect);
     }
-  }, [dispatch, error, alert, navigate, isAuthenticated, redirect]);
+  }, [dispatch, error, toast, navigate, isAuthenticated, redirect]);
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");

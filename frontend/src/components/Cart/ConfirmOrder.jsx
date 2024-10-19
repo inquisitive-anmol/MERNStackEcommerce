@@ -6,7 +6,7 @@ import "./ConfirmOrder.css";
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import logo from "../../assets/images/logo.png";
 import axios from "axios";
 import { createOrder, clearErrors } from "../../reduxStore/actions/orderAction";
@@ -18,7 +18,6 @@ const ConfirmOrder = ({ razorpayApiKey }) => {
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
   const { error } = useSelector((state) => state.newOrder);
-  const alert = useAlert();
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.quantity * item.price,
@@ -52,7 +51,7 @@ const ConfirmOrder = ({ razorpayApiKey }) => {
         throw new Error("Internal Server Error", 500);
       }
     } catch (error) {
-      alert.error(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -127,7 +126,7 @@ const ConfirmOrder = ({ razorpayApiKey }) => {
         throw new Error("Error in payment processing!");
       }
     } catch (cError) {
-      alert.error("Error in payment processing!");
+      toast.error("Error in payment processing!");
     }
 
     const options = {
@@ -172,20 +171,20 @@ const ConfirmOrder = ({ razorpayApiKey }) => {
       }
       dispatch(createOrder(order));
      if(!error) {
-      alert.success("payment successful");
+      toast.success("payment successful");
       navigate("/success");
      } else {
-      alert.error(error);
+      toast.error(error);
      }
     }
   }
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch, error, alert]);
+  }, [dispatch, error, toast]);
 
   return (
     <>

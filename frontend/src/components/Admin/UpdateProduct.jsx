@@ -6,7 +6,7 @@ import {
   updateProduct,
   getProductDetails,
 } from "../../reduxStore/actions/productAction";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import { Button } from '@mui/material';
 import MetaData from "../layout/MetaData";
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
@@ -20,7 +20,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateProduct = () => {
   const dispatch = useDispatch();
-  const alert = useAlert();
+
   const navigate = useNavigate();
   const params = useParams();
 
@@ -65,23 +65,23 @@ const UpdateProduct = () => {
       setOldImages(product.images);
     }
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (updateError) {
-      alert.error(updateError);
+      toast.error(updateError);
       dispatch(clearErrors());
     }
 
     if (isUpdated) {
-      alert.success("Product Updated Successfully");
+      toast.success("Product Updated Successfully");
       navigate("/admin/products");
       dispatch({ type: UPDATE_PRODUCT_RESET });
     }
   }, [
     dispatch,
-    alert,
+    toast,
     error,
     navigate,
     isUpdated,

@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import "./productList.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import { Button } from "@mui/material";
 import MetaData from "../layout/MetaData";
 import EditIcon from "@mui/icons-material/Edit";
@@ -19,7 +19,6 @@ import { DELETE_ORDER_RESET } from "../../reduxStore/constants/orderConstants";
 const OrderList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const alert = useAlert();
 
   const { error, orders } = useSelector((state) => state.allOrders);
 
@@ -31,23 +30,23 @@ const OrderList = () => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (deleteError) {
-      alert.error(deleteError);
+      toast.error(deleteError);
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
-      alert.success("Order Deleted Successfully");
+      toast.success("Order Deleted Successfully");
       navigate("/admin/orders");
       dispatch({ type: DELETE_ORDER_RESET });
     }
 
     dispatch(getAllOrders());
-  }, [dispatch, alert, error, deleteError, history, isDeleted]);
+  }, [dispatch, toast, error, deleteError, history, isDeleted]);
 
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },

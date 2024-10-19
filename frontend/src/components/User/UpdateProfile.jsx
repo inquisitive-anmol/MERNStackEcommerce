@@ -8,7 +8,7 @@ import {
   updateProfile,
   loadUser,
 } from "../../reduxStore/actions/userAction";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import Loader from "../ui/Loader";
 import { useNavigate, useLocation } from "react-router-dom";
 import { UPDATE_PROFILE_RESET } from "../../reduxStore/constants/userConstants";
@@ -16,7 +16,6 @@ import MetaData from "../layout/MetaData";
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();
-  const alert = useAlert();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
   const { error, loading, isUpdated } = useSelector((state) => state.profile);
@@ -58,19 +57,19 @@ const UpdateProfile = () => {
 
     if (error) {
       console.log(error);
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (isUpdated) {
-      alert.success("Profile Updated Successfully");
+      toast.success("Profile Updated Successfully");
       dispatch(loadUser());
       navigate("/account", { replace: true });
       dispatch({
         type: UPDATE_PROFILE_RESET,
       });
     }
-  }, [dispatch, error, alert, navigate, isUpdated, user]);
+  }, [dispatch, error, toast, navigate, isUpdated, user]);
 
   return (
     <>

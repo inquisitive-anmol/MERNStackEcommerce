@@ -3,7 +3,7 @@ import CheckoutSteps from "./CheckoutSteps";
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layout/MetaData";
 import { Typography } from "@mui/material";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import Razorpay from "razorpay";
 import axios from "axios";
 import "./Payment.css";
@@ -16,7 +16,7 @@ const Payment = ({ razorpayApiKey }) => {
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
   // const { error } = useSelector((state) => state.newOrder);
-  const alert = useAlert();
+
   const navigate = useNavigate();
 
   const paymentData = {
@@ -59,7 +59,7 @@ const Payment = ({ razorpayApiKey }) => {
         throw new Error("Internal Server Error", 500);
       }
     } catch (error) {
-      alert.error(error.message);
+      toast.error(error.message);
       console.log("error in getting api: ", error);
     }
   };
@@ -74,7 +74,7 @@ const Payment = ({ razorpayApiKey }) => {
         throw new Error("Error in payment processing!");
       }
     } catch (cError) {
-      alert.error("Error in payment processing!");
+      toast.error("Error in payment processing!");
     }
     // =============razorpay display ============
 
@@ -90,10 +90,7 @@ const Payment = ({ razorpayApiKey }) => {
       image: logo,
       order_id: data.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
       handler: function (response) {
-        // alert(response.razorpay_payment_id);
-        // alert(response.razorpay_order_id);
-        // alert(response.razorpay_signature)
-        alert.success("payment successful");
+        toast.success("payment successful");
         console.log("response: ", response);
         navigate("/success");
       },
@@ -122,7 +119,6 @@ const Payment = ({ razorpayApiKey }) => {
       // alert(response.error.reason);
       // alert(response.error.metadata.order_id);
       // alert(response.error.metadata.payment_id);
-      console.log("response: ", response);
     });
   }
 
