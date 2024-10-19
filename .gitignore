@@ -10,6 +10,7 @@
 
 # production
 /frontend/build
+/frontend/dist
 
 # misc
 /backend/config/config.env
