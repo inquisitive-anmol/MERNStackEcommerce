@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Loader from "../ui/Loader";
-import "./Profile.css";
+import "./profile.css";
 
 const Profile = () => {
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
