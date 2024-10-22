@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../../assets/images/logo.png";
-import Brand from "../../ui/brand";
+import Brand from "../../ui/Brand";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import TwitterIcon from "@mui/icons-material/Twitter";
