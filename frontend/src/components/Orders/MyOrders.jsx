@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import "./myOrder.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, myOrders } from "../../reduxStore/actions/orderAction";
+import { clearErrors, myOrders } from "../../reduxStore/actions/OrderAction";
 import Loader from "../ui/Loader";
 import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';

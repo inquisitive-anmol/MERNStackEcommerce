@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import logo from "../../assets/images/logo.png";
 import axios from "axios";
-import { createOrder, clearErrors } from "../../reduxStore/actions/orderAction";
+import { createOrder, clearErrors } from "../../reduxStore/actions/OrderAction";
 import { useEffect } from "react";
 
 const ConfirmOrder = ({ razorpayApiKey }) => {

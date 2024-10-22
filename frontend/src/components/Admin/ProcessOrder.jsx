@@ -8,13 +8,13 @@ import {
   getOrderDetails,
   clearErrors,
   updateOrder,
-} from "../../reduxStore/actions/orderAction";
+} from "../../reduxStore/actions/OrderAction";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../ui/Loader";
 import { toast } from 'react-toastify';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import { Button } from '@mui/material';
-import { UPDATE_ORDER_RESET } from "../../reduxStore/constants/orderConstants";
+import { UPDATE_ORDER_RESET } from "../../reduxStore/constants/OrderConstants";
 import "./processOrder.css";
 
 const ProcessOrder = () => {

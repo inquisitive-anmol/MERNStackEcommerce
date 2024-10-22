@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layout/MetaData";
 import { Link } from "react-router-dom";
 import { Typography } from '@mui/material';
-import { getOrderDetails, clearErrors } from "../../reduxStore/actions/orderAction";
+import { getOrderDetails, clearErrors } from "../../reduxStore/actions/OrderAction";
 import Loader from "../ui/Loader";
 import { toast } from 'react-toastify';
 import { useParams } from "react-router-dom";

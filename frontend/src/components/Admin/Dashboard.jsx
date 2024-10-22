@@ -19,7 +19,7 @@ import {
 import { Doughnut, Line } from "react-chartjs-2";
 import { useSelector, useDispatch } from "react-redux";
 import { getAdminProducts } from "../../reduxStore/actions/productAction";
-import { getAllOrders } from "../../reduxStore/actions/orderAction";
+import { getAllOrders } from "../../reduxStore/actions/OrderAction";
 import { getAllUsers } from "../../reduxStore/actions/userAction";
 import MetaData from "../layout/MetaData";
 

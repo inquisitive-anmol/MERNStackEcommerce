@@ -9,7 +9,7 @@ import axios from "axios";
 import "./Payment.css";
 import logo from "../../assets/images/logo.png";
 import { replace, useNavigate } from "react-router-dom";
-import { createOrder, clearErrors } from "../../reduxStore/actions/orderAction";
+import { createOrder, clearErrors } from "../../reduxStore/actions/OrderAction";
 
 const Payment = ({ razorpayApiKey }) => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));

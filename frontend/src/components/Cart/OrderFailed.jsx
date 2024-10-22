@@ -6,7 +6,7 @@ import MetaData from "../layout/MetaData";
 import { useSelector, useDispatch } from "react-redux";
 import CheckoutSteps from "./CheckoutSteps";
 import { toast } from 'react-toastify';
-import { clearErrors } from "../../reduxStore/actions/orderAction";
+import { clearErrors } from "../../reduxStore/actions/OrderAction";
 
 const OrderFailed = () => {
   const { error } = useSelector((state) => state.newOrder);
