@@ -22,7 +22,7 @@ import {
   newOrderReducer,
   orderDetailsReducer,
   orderReducer,
-} from "./reducers/orderReducers";
+} from "./reducers/OrderReducers";
 
 const reducer = combineReducers({
   products: productsReducer,

@@ -18,7 +18,7 @@ import {
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAIL,
   CLEAR_ERRORS,
-} from "../constants/orderConstants";
+} from "../constants/OrderConstants";
 
 import axios from "axios";
 
