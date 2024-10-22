@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { IoSearch } from "react-icons/io5";
 import LocalMallRoundedIcon from '@mui/icons-material/LocalMallRounded';
 import { RiAccountCircleLine } from "react-icons/ri";
-import Brand from "../../ui/brand";
+import Brand from "../../ui/Brand";
 
 const Header = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
