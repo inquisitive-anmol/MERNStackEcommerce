@@ -13,8 +13,8 @@ import {
   deleteOrder,
   getAllOrders,
   clearErrors,
-} from "../../reduxStore/actions/orderAction";
-import { DELETE_ORDER_RESET } from "../../reduxStore/constants/orderConstants";
+} from "../../reduxStore/actions/OrderAction";
+import { DELETE_ORDER_RESET } from "../../reduxStore/constants/OrderConstants";
 
 const OrderList = () => {
   const dispatch = useDispatch();
