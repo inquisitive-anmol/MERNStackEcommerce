@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./orderSuccess.css";
+import "./OrderSuccess.css";
 import ErrorIcon from "@mui/icons-material/Error";
 import { Typography } from "@mui/material";
 import MetaData from "../layout/MetaData";
