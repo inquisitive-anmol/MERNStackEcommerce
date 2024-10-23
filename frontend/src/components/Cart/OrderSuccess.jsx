@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import "./orderSuccess.css";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import CheckoutSteps from "./CheckoutSteps";
