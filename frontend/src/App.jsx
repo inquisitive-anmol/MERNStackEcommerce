@@ -43,6 +43,12 @@ import NotFound from "./components/layout/NotFound/NotFound";
 import Blog from "./components/Blog/Blog";
 import Career from "./components/Career/Career";
 import TrackOrder from "./components/TrackOrder/TrackOrder";
+import Return from "./components/Return/Return";
+import Faqs from "./components/Faqs/Faqs";
+import Privacy from "./components/Policies/Privacy";
+import ReturnExchange from "./components/Policies/ReturnExchange";
+import TermCondition from "./components/Policies/TermCondition";
+import ShippingPolicy from "./components/Policies/ShippingPolicy";
 
 const App = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -81,6 +87,12 @@ const App = () => {
         <Route exact path="/blogs" Component={Blog} />
         <Route exact path="/career" Component={Career} />
         <Route exact path="/myorder/track" Component={TrackOrder} />
+        <Route exact path="/return" Component={Return} />
+        <Route exact path="/faqs" Component={Faqs} />
+        <Route exact path="/privacy" Component={Privacy} />
+        <Route exact path="/return/policy" Component={ReturnExchange} />
+        <Route exact path="/terms" Component={TermCondition} />
+        <Route exact path="/shipping/policy" Component={ShippingPolicy} />
         <Route exact path="/product/:id" Component={ProductDetail} />
         <Route exact path="/products" Component={Products} />
         <Route path="/products/:keyword" Component={Products} />

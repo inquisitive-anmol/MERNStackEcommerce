@@ -1,0 +1,32 @@
+
+/* Return & Exchange page style starts here */
+.cancel-policy-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .cancel-policy-box-title {
+    width: 100%;
+    margin: 15px 15px;
+    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .cancel-policy-body {
+    width: 100%;
+    padding: 10px 40px;
+  
+    display: flex;
+    gap: 25px;
+    flex-direction: column;
+  }
+  .heading-cancel {
+    width: 100%;
+    font-size: 2rem;
+  }
+  .content-cancel {
+    width: 100%;
+    font-size: 1.1rem;
+    line-height: 2rem;
+  }

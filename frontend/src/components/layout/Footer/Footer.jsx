@@ -79,6 +79,9 @@ const Footer = () => {
             <h3 className="px-2 text-black/70">
               <Link to="/return/policy">Return Policy</Link>
             </h3>
+            <h3 className="px-2 text-black/70">
+              <Link to="/shipping/policy">Shipping Policy</Link>
+            </h3>
           </div>
           <div className="text-sm lg:text-lg">
             <h2 className="font-medium mb-2 text-xl">Contact</h2>

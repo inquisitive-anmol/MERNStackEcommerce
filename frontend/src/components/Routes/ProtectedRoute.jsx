@@ -18,15 +18,11 @@ const ProtectedRoute = ({ children, isAdmin  }) => {
       if(isAdmin === true && user.role !== "admin") {
         return navigate("/login", {state: {from: location.pathname}});
       }
-      return children;
+      
     }
   }, [])
 
-  return (
-    <div className="flex items-center justify-center w-full h-screen">
-      <Loader />
-    </div>
-  );
+  return children;
 };
 
 export default ProtectedRoute;
