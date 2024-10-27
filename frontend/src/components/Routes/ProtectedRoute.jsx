@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Route, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../ui/Loader";
@@ -9,15 +9,18 @@ const ProtectedRoute = ({ children, isAdmin  }) => {
   const navigate = useNavigate();
 
 
-  if (!loading) {
-    if (!isAuthenticated) {
-      return navigate("/login", {state: {from: location.pathname}});
+ 
+  useEffect(() => {
+    if (!loading) {
+      if (isAuthenticated === false) {
+        return navigate("/login", {state: {from: location.pathname}});
+      }
+      if(isAdmin === true && user.role !== "admin") {
+        return navigate("/login", {state: {from: location.pathname}});
+      }
+      return children;
     }
-    if(isAdmin === true && user.role !== "admin") {
-      return navigate("/login", {state: {from: location.pathname}});
-    }
-    return children;
-  }
+  }, [])
 
   return (
     <div className="flex items-center justify-center w-full h-screen">

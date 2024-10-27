@@ -1,0 +1,128 @@
+
+#about {
+    width: 100%;
+  }
+  
+  .about-hero {
+    height: 25vmax;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+  }
+  
+  .about-hero-img {
+    height: 25vmax;
+    width: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ff80007a;
+  }
+  
+  .about-hero-box {
+    position: absolute;
+    top: 10vmax;
+  }
+  
+  .about-hero-title {
+    font-size: 5vmax;
+    font-weight: 600;
+    width: 100%;
+  }
+  
+  .about-hero-title-para {
+    font-size: 1.5vmax;
+    font-weight: 500;
+  }
+  
+  .about-sec {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2vmax;
+  }
+  
+  .about-sec-cards {
+    width: 90%;
+    height: 30vmax;
+  
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5vmax;
+  }
+  
+  .about-sec-card-left {
+    width: 50%;
+    height: 30vmax;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1vmax;
+  }
+  
+  .about-sec-card-right {
+    width: 50%;
+    height: 100%;
+    box-shadow: 5px 5px 50px #ff80007a;
+    transition: width 1.5s;
+    border-radius: 15px;
+  }
+  
+  .about-sec-card-left-h3 {
+    font-size: 2.9vmax;
+  }
+  
+  .about-sec-card-left-p {
+    font-size: 1.4vmax;
+    padding: 0.2vmax 1vmax;
+  }
+  
+  .about-sec-right-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+  .about-sec-card-right:hover {
+    height: 98%;
+    width: 45%;
+    object-fit: cover;
+  }
+  
+  @media (max-width: 872px) {
+    .about-sec-card-left-h3 {
+      font-size: 2.5vmax;
+    }
+  
+    .about-sec-card-left-p {
+      font-size: 1.3vmax;
+      padding: 1vmax;
+    }
+  }
+  
+  @media (max-width: 692px) {
+    .about-sec-card-left-h3 {
+      font-size: 3vmin;
+    }
+  
+    .about-sec-card-left-p {
+      font-size: 2vmin;
+      padding: 1vmax;
+    }
+  }
+  

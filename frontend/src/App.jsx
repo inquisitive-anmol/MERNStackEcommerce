@@ -40,6 +40,9 @@ import UsersList from "./components/Admin/UsersList";
 import UpdateUser from "./components/Admin/UpdateUser";
 import ProductReviews from "./components/Admin/ProductReviews";
 import NotFound from "./components/layout/NotFound/NotFound";
+import Blog from "./components/Blog/Blog";
+import Career from "./components/Career/Career";
+import TrackOrder from "./components/TrackOrder/TrackOrder";
 
 const App = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -75,6 +78,9 @@ const App = () => {
         <Route path="/" exact Component={Home} />
         <Route exact path="/about" Component={About} />
         <Route exact path="/contact" Component={Contact} />
+        <Route exact path="/blogs" Component={Blog} />
+        <Route exact path="/career" Component={Career} />
+        <Route exact path="/myorder/track" Component={TrackOrder} />
         <Route exact path="/product/:id" Component={ProductDetail} />
         <Route exact path="/products" Component={Products} />
         <Route path="/products/:keyword" Component={Products} />
