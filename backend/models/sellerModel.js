@@ -32,4 +32,6 @@ const sellerSchema = new mongoose.Schema({
             required: [true, "Please enter IFSC Code"],
         },
     }
+}, {
+    timestamps: true
 })

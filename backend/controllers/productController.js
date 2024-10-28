@@ -4,9 +4,9 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ApiFeatures = require("../utils/apiFeatures");
 const cloudinary = require("cloudinary");
 
-// Create Product -- Admin
+// Create New Product -- Admin
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
-  console.log("request recieved!");
+
   let images = [];
 
   if (typeof req.body.images === "string") {
