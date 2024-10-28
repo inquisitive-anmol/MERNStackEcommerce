@@ -14,13 +14,7 @@ const ProductCard = ({ product }) => {
       className="w-[20vmax] lg:w-[15vmax] rounded-t pb-2"
       to={`/product/${product._id}`}
     >
-      <div                                                        
-        className="w-full h-full"
-        shadow="sm"
-        key={product.name}
-        isPressable
-        onPress={() => console.log("item pressed")}
-      >
+      <div className="w-full h-full" shadow="sm" key={product.name} isPressable>
         <div className="overflow-visible p-0">
           <img
             shadow="sm"
@@ -47,7 +41,7 @@ const ProductCard = ({ product }) => {
               </p>
             </div>
             <p className="font-normal text-left lg:mt-1 text-accentColor text-md lg:text-lg hover:text-[#FF3C00] pl-1">
-              Rs. {product.price}
+              Rs. {product.variants[0].shoocartPrice}
             </p>
           </div>
         </div>

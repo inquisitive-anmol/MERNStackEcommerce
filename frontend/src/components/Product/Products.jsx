@@ -7,7 +7,7 @@ import {
 import Loader from "../ui/Loader";
 import ProductCard from "../ui/ProductCard";
 import { useParams } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import PaginationUi from "../ui/PaginationUi";
 import FilterUi from "../ui/FilterUi";
 import MetaData from "../layout/MetaData";
@@ -21,6 +21,14 @@ const Products = () => {
   const [ratings, setRatings] = useState(0);
   const [open, setOpen] = useState(false);
 
+  const dispatch = useDispatch();
+
+  const { loading, products, error, productsCount, resultPerPage } =
+    useSelector((state) => state.products);
+
+    console.log("products: ", products);
+  const { keyword } = useParams();
+
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
   };
@@ -33,13 +41,6 @@ const Products = () => {
     setRatings(newRating);
   };
 
-
-  const dispatch = useDispatch();
-
-  const { loading, products, error, productsCount, resultPerPage } =
-    useSelector((state) => state.products);
-
-  const { keyword } = useParams();
   const handleFilterClick = (e) => {
     e.preventDefault();
     setOpen(!open);
@@ -84,16 +85,21 @@ const Products = () => {
                   : "lg:w-[20%] md:w-[27%]"
               }
             >
-             <div className="h-fit mb-3 mt-2 w-full relative left-[50%] -translate-x-2/4">
-             {open && <CloseIcon className="mb-4 bg-black/5 p-1 rounded-full" onClick={handleFilterClick} />}
-              <FilterUi
-                priceHandler={priceHandler}
-                price={price}
-                setCategory={setCategory}
-                ratings={ratings}
-                ratingHandler={ratingHandler}
-              />
-             </div>
+              <div className="h-fit mb-3 mt-2 w-full relative left-[50%] -translate-x-2/4">
+                {open && (
+                  <CloseIcon
+                    className="mb-4 bg-black/5 p-1 rounded-full"
+                    onClick={handleFilterClick}
+                  />
+                )}
+                <FilterUi
+                  priceHandler={priceHandler}
+                  price={price}
+                  setCategory={setCategory}
+                  ratings={ratings}
+                  ratingHandler={ratingHandler}
+                />
+              </div>
             </div>
 
             <div className="w-full lg:w-[80%] md:w-[73%] flex flex-wrap justify-center items-center gap-3">
