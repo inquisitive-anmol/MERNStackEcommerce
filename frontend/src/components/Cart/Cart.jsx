@@ -43,8 +43,8 @@ const Cart = () => {
     dispatch(addItemsToCart(id, newQty, size));
   };
 
-  const deleteCartItems = (id) => {
-    dispatch(removeItemsFromCart(id));
+  const deleteCartItems = (id, size) => {
+    dispatch(removeItemsFromCart(id, size));
   };
 
   const checkoutHandler = () => {
@@ -93,7 +93,7 @@ const Cart = () => {
               <h2 className=" mt-4 font-medium lg:text-lg mb-10">
                 Summary
               </h2>
-              {/* <div className="cupon"></div> */}
+              
               <div className="flex text-small items-center mt-3 justify-between">
                 <p className=" font-medium">Subtotal:</p>
                 <p>Rs. {subtotal}</p>

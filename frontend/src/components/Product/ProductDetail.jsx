@@ -33,6 +33,7 @@ const ProductDetail = () => {
     (state) => state.productDetails
   );
 
+
   const { success, error: reviewError } = useSelector(
     (state) => state.newReview
   );
@@ -46,11 +47,7 @@ const ProductDetail = () => {
 
   const [imgIndex, setImgIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [size, setSize] = useState(
-    product.variants && product.variants.length > 0
-      ? product.variants[0].size
-      : ""
-  );
+  const [size, setSize] = useState(null);
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
@@ -100,6 +97,10 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
+    if (product && product.variants && product.variants.length > 0) {
+      setSize(product.variants[0].size);
+    }
+
     if (error) {
       toast.error(error);
       dispatch(clearErrors());
@@ -115,7 +116,7 @@ const ProductDetail = () => {
     }
     dispatch(getProductDetails(id));
     dispatch(getAllProducts());
-  }, [dispatch, useParams, error, reviewError, success, pathName]);
+  }, [dispatch, useParams, error, reviewError, success, pathName, loading]);
 
   return (
     <>

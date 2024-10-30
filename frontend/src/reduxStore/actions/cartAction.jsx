@@ -29,10 +29,13 @@ console.log("variant: ", variant, "\n", "quantity: ", quantity);
 };
 
 // REMOVE FROM CART
-export const removeItemsFromCart = (id) => async (dispatch, getState) => {
+export const removeItemsFromCart = (id, size) => async (dispatch, getState) => {
   dispatch({
     type: REMOVE_CART_ITEM,
-    payload: id,
+    payload: {
+      productId: id,
+      size,
+    },
   });
 
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));

@@ -20,14 +20,14 @@ export const cartReducers = (
       const item = action.payload;
 
       const isItemExist = state.cartItems.find(
-        (i) => i.product === item.product
+        (i) => i.product === item.product && i.size === item.size
       );
 
       if (isItemExist) {
         return {
           ...state,
           cartItems: state.cartItems.map((i) =>
-            i.product === isItemExist.product ? item : i
+            i.product === isItemExist.product && i.size === isItemExist.size ? item : i
           ),
         };
       } else {
@@ -38,9 +38,10 @@ export const cartReducers = (
       }
 
     case REMOVE_CART_ITEM:
+      
       return {
         ...state,
-        cartItems: state.cartItems.filter((i) => i.product !== action.payload),
+        cartItems: state.cartItems.filter((i) => !(i.product === action.payload.productId && i.size === action.payload.size)),
       };
 
     case SAVE_SHIPPING_INFO:

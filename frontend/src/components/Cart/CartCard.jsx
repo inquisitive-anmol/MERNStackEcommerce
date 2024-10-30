@@ -53,7 +53,7 @@ const CartCard = ({
       </div>
       <div
         className="action text-black pt-1 w-fit h-fit"
-        onClick={(e) => deleteCartItems(item.product)}
+        onClick={(e) => deleteCartItems(item.product, item.size)}
       >
         <DeleteForeverSharpIcon className="cursor-pointer" />
       </div>
