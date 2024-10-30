@@ -8,7 +8,7 @@ import {
   getProductDetails,
   newReview,
 } from "../../reduxStore/actions/productAction";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import FeaturedProduct from "../Product/FeaturedProduct";
 import Loader from "../ui/Loader";
@@ -46,11 +46,26 @@ const ProductDetail = () => {
 
   const [imgIndex, setImgIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState(
+    product.variants && product.variants.length > 0
+      ? product.variants[0].size
+      : ""
+  );
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
   const setImage = (idx) => setImgIndex(idx);
+
+  const handleSize = (e) => {
+    setSize(e.target.value);
+  };
+
+  const qtyTracker =
+    product.variants && product.variants.length > 0
+      ? product.variants.find((itm) => itm.size === size)
+      : { stock: 0 };
+  console.log("qtyTracker: ", qtyTracker, "\n", "size: ", size);
 
   const handleQuantity = (e) => {
     setQuantity(Number(e.target.value));
@@ -79,7 +94,7 @@ const ProductDetail = () => {
 
   const options = {
     value: product.ratings,
-readOnly: true,
+    readOnly: true,
     size: "medium",
     precision: 0.5,
   };
@@ -140,7 +155,10 @@ readOnly: true,
 
             {/* right section */}
             <div className="right md:w-[50%] md:pl-10 md:pr-8 px-8 py-8">
-              <p className="vendor">seller</p>
+              <p className="vendor">
+                <span className="font-medium">Seller: </span>
+                {product.user && product.user.name}
+              </p>
               <p className="name text-black font-medium text-4xl text-wrap">
                 {product.name}
               </p>
@@ -149,30 +167,41 @@ readOnly: true,
                 <p className="mx-2">
                   <Rating {...options} />
                 </p>
-                <p className="ml-1 text-black/45">({product.numOfReviews} Reviews)</p>
+                <p className="ml-1 text-black/45">
+                  ({product.numOfReviews} Reviews)
+                </p>
               </p>
-
-              {product.size && product.size.length > 0 ? (
-                <div className="size mt-4">
-                  <label htmlFor="size" className="mr-2">
-                    Size:
-                  </label>
-                  <select className="rounded-xl px-3 py" name="size" id="size">
-                    <option value="6">6 UK</option>
-                    <option value="7">7 UK</option>
-                    <option value="8">8 UK</option>
-                    <option value="9">9 UK</option>
-                    <option value="10">10 UK</option>
-                    <option value="11">11 UK</option>
-                    <option value="12">12 UK</option>
+              <div className="quantity">
+                <label htmlFor="size" className="mr-2">
+                  Size:
+                </label>
+                {product.variants && product.variants.length > 0 ? (
+                  <select
+                    onChange={handleSize}
+                    value={size}
+                    className="rounded-xl px-3 py border-1 border-gray-300 outline-none"
+                    name="size"
+                    id="size"
+                  >
+                    {product.variants.map((num) => (
+                      <option value={num.size} key={num.size}>
+                        {num.size}
+                      </option>
+                    ))}
                   </select>
-                </div>
-              ) : null}
+                ) : (
+                  ""
+                )}
+              </div>
 
               <p className="price mx-1 my-6">
-                <span className="mr-1 text-lg font-medium text-black">₹</span>
+                <span className="mr-1 text-lg lg:text-2xl md:text-xl font-bold text-black">₹</span>
                 <span className="font-medium text-3xl text-textColor hover:text-black transition-colors">
-                  {product.price}
+                  {product.variants && product.variants.length > 0 ? (
+                    product.variants[0].shoocartPrice
+                  ) : (
+                    <Loader className="!w-[30px]" />
+                  )}
                 </span>
               </p>
 
@@ -180,7 +209,7 @@ readOnly: true,
                 <label htmlFor="qty" className="mr-2">
                   Quantity:
                 </label>
-                {product.stock ? (
+                {product.variants && product.variants.length > 0 ? (
                   <select
                     onChange={handleQuantity}
                     value={quantity}
@@ -188,7 +217,7 @@ readOnly: true,
                     name="qty"
                     id="qty"
                   >
-                    {[...Array(product.stock).keys()].map((num) => (
+                    {[...Array(!qtyTracker ? product.variants[0].stock : qtyTracker?.stock).keys()].map((num) => (
                       <option value={num + 1} key={num + 1}>
                         {num + 1}
                       </option>
@@ -202,7 +231,7 @@ readOnly: true,
               <div className="cta-btns">
                 {isAuthenticated ? (
                   <button
-                    disabled={product.stock < 1 ? true : false}
+                    disabled={(!qtyTracker ? product.variants[0].stock : qtyTracker?.stock) < 1 ? true : false}
                     onClick={addToCartHandler}
                     className="text-white px-20 py-2 bg-accentColor mt-8 rounded-3xl text-lg font-medium hover:bg-[#FF3C00]"
                   >
@@ -220,13 +249,13 @@ readOnly: true,
               <p className="status">
                 <b
                   className={`${
-                    product && product.stock < 1
+                    (!qtyTracker ? product.variants[0].stock : qtyTracker?.stock) < 1
                       ? "text-red-600"
                       : "text-green-800"
                   } ml-4`}
                 >
                   <span className="text-textColor">Status: </span>
-                  {product && product.stock < 1 ? "OutOfStock" : "InStock"}
+                  {(!qtyTracker ? product.variants[0].stock : qtyTracker?.stock) < 1 ? "OutOfStock" : "InStock"}
                 </b>
               </p>
               <p className="description text-[16px] text-black text-wrap mt-7">
@@ -301,9 +330,9 @@ readOnly: true,
                   />
                 ))
               ) : (
-                  <p className="text-gray-400 font-semibold text-lg">
-                    No Reviews Yet
-                  </p>
+                <p className="text-gray-400 font-semibold text-lg">
+                  No Reviews Yet
+                </p>
               )}
             </div>
           </div>

@@ -6,7 +6,6 @@ const cloudinary = require("cloudinary");
 
 // Create New Product -- Admin
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
-
   let images = [];
 
   if (typeof req.body.images === "string") {
@@ -49,12 +48,12 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
     .filter()
     .pagination(resultPerPage);
 
-    const products = await apiFeature.query;
-  const prod = await Product.find({});
+  const products = await apiFeature.query;
+
+  
   if (!products) {
     return next(new ErrorHandler("Product not found", 404));
   }
- 
 
   res.status(200).json({
     success: true,
@@ -147,7 +146,7 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Get Product Details
 exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
-  const product = await Product.findById(req.params.id);
+  const product = await Product.findById(req.params.id).populate("user");
 
   if (!product) {
     return next(new ErrorHandler("Product not found", 404));

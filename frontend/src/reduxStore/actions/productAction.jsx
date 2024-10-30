@@ -48,7 +48,6 @@ export const getAllProducts =
       }
 
       const data = await axios.get(link);
-
       dispatch({
         type: ALL_PRODUCT_SUCCESS,
         payload: data,
@@ -166,13 +165,14 @@ export const getProductDetails = (id) => async (dispatch) => {
     dispatch({
       type: PRODUCT_DETAILS_REQUEST,
     });
-    const response = await axios.get(
+    const { data } = await axios.get(
       `http://localhost:4000/api/v1/product/${id}`
     );
-    console.log("response.data.product => ", response.data.product);
+
+    console.log("data.product in detail action: ", data.product);
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
-      payload: response.data.product,
+      payload: data.product,
     });
   } catch (error) {
     dispatch({

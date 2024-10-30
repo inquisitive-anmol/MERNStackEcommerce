@@ -128,11 +128,6 @@ const productSchema = mongoose.Schema(
       ref: "User",
       required: true,
     },
-    // users: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "User",
-    //   required: true,
-    // },
     productId: {
       type: String,
     },
