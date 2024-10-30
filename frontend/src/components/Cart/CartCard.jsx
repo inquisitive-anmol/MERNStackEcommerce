@@ -19,12 +19,13 @@ const CartCard = ({
       </div>
       <div className="name pt-2 text-black text-[0.675rem] md:text-[1rem]">
         <Link to={`/product/${item.product}`}>{item.name}</Link>
+        <h3>Size: <span className="text-black/60">{item.size}</span></h3>
       </div>
 
       <div className="flex text-black items-start justify-between pt-2">
         <div className="sm:rounded-3xl rounded-full flex overflow-hidden sm:border-2 border-1 bg-white">
           <button
-            onClick={(e) => decreaseQuantity(item.product, item.quantity)}
+            onClick={(e) => decreaseQuantity(item.product, item.quantity, item.size)}
             className="sm:px-2 sm:py-1 bg-bgColor hover:bg-stone-100 sm:text-lg p-1 text-[0.775rem] md:text-[1rem]"
           >
             -
@@ -37,7 +38,7 @@ const CartCard = ({
           />
           <button
             onClick={(e) =>
-              increaseQuantity(item.product, item.quantity, item.stock)
+              increaseQuantity(item.product, item.quantity, item.stock, item.size)
             }
             className="sm:px-2 sm:py-1 bg-bgColor hover:bg-stone-100 sm:text-lg p-1 text-[0.775rem]"
           >

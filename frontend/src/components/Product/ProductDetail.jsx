@@ -72,7 +72,7 @@ const ProductDetail = () => {
   };
 
   const addToCartHandler = () => {
-    dispatch(addItemsToCart(id, quantity));
+    dispatch(addItemsToCart(id, quantity, size));
     toast.success("Item Added to Cart");
   };
 
@@ -195,7 +195,9 @@ const ProductDetail = () => {
               </div>
 
               <p className="price mx-1 my-6">
-                <span className="mr-1 text-lg lg:text-2xl md:text-xl font-bold text-black">₹</span>
+                <span className="mr-1 text-lg lg:text-2xl md:text-xl font-bold text-black">
+                  ₹
+                </span>
                 <span className="font-medium text-3xl text-textColor hover:text-black transition-colors">
                   {product.variants && product.variants.length > 0 ? (
                     product.variants[0].shoocartPrice
@@ -217,7 +219,13 @@ const ProductDetail = () => {
                     name="qty"
                     id="qty"
                   >
-                    {[...Array(!qtyTracker ? product.variants[0].stock : qtyTracker?.stock).keys()].map((num) => (
+                    {[
+                      ...Array(
+                        !qtyTracker
+                          ? product.variants[0].stock
+                          : qtyTracker?.stock
+                      ).keys(),
+                    ].map((num) => (
                       <option value={num + 1} key={num + 1}>
                         {num + 1}
                       </option>
@@ -231,7 +239,13 @@ const ProductDetail = () => {
               <div className="cta-btns">
                 {isAuthenticated ? (
                   <button
-                    disabled={(!qtyTracker ? product.variants[0].stock : qtyTracker?.stock) < 1 ? true : false}
+                    disabled={
+                      (!qtyTracker
+                        ? product.variants[0].stock
+                        : qtyTracker?.stock) < 1
+                        ? true
+                        : false
+                    }
                     onClick={addToCartHandler}
                     className="text-white px-20 py-2 bg-accentColor mt-8 rounded-3xl text-lg font-medium hover:bg-[#FF3C00]"
                   >
@@ -249,13 +263,19 @@ const ProductDetail = () => {
               <p className="status">
                 <b
                   className={`${
-                    (!qtyTracker ? product.variants[0].stock : qtyTracker?.stock) < 1
+                    (!qtyTracker
+                      ? product.variants[0].stock
+                      : qtyTracker?.stock) < 1
                       ? "text-red-600"
                       : "text-green-800"
                   } ml-4`}
                 >
                   <span className="text-textColor">Status: </span>
-                  {(!qtyTracker ? product.variants[0].stock : qtyTracker?.stock) < 1 ? "OutOfStock" : "InStock"}
+                  {(!qtyTracker
+                    ? product.variants[0].stock
+                    : qtyTracker?.stock) < 1
+                    ? "OutOfStock"
+                    : "InStock"}
                 </b>
               </p>
               <p className="description text-[16px] text-black text-wrap mt-7">

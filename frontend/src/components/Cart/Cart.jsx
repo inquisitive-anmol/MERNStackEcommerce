@@ -27,20 +27,20 @@ const Cart = () => {
   const totalPrice = subtotal + tax + shippingCharges;
 
 
-  const increaseQuantity = (id, quantity, stock) => {
+  const increaseQuantity = (id, quantity, stock, size) => {
     const newQty = quantity + 1;
     if (stock <= quantity) {
       return;
     }
-    dispatch(addItemsToCart(id, newQty));
+    dispatch(addItemsToCart(id, newQty, size));
   };
 
-  const decreaseQuantity = (id, quantity) => {
+  const decreaseQuantity = (id, quantity, size) => {
     const newQty = quantity - 1;
     if (1 >= quantity) {
       return;
     }
-    dispatch(addItemsToCart(id, newQty));
+    dispatch(addItemsToCart(id, newQty, size));
   };
 
   const deleteCartItems = (id) => {
