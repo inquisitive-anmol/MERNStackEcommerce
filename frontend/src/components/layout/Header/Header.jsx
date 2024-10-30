@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
 import { useSelector } from "react-redux";
 import { IoSearch } from "react-icons/io5";
-import LocalMallRoundedIcon from '@mui/icons-material/LocalMallRounded';
+import LocalMallRoundedIcon from "@mui/icons-material/LocalMallRounded";
 import { RiAccountCircleLine } from "react-icons/ri";
 import Brand from "../../ui/Brand";
 
@@ -22,16 +22,17 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
-    "Profile",
     "Home",
-    "Men",
-    "Women",
-    "Sports",
+    "Products",
+    "Profile",
     "About",
     "Contact",
-    // "Dashboard",
     "Log Out",
   ];
+
+  if (user && user.role === "admin") {
+    menuItems.unshift("Dashboard");
+  }
 
   return (
     <Navbar
@@ -45,7 +46,10 @@ const Header = () => {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <Brand logo={logo} className="flex ml-4 sm:ml-0 items-center justify-center"/>
+          <Brand
+            logo={logo}
+            className="flex ml-4 sm:ml-0 items-center justify-center"
+          />
         </NavbarBrand>
       </NavbarContent>
 
@@ -82,31 +86,31 @@ const Header = () => {
       <NavbarContent className="lg:flex lg:gap-5">
         <NavbarItem className="lg:flex ml-10 mr-1 items-center">
           <Link to="/search">
-          <IoSearch
-            strokeWidth={2}
-            className="text-textColor opacity-[.9] hover:opacity-[1] cursor-pointer text-3xl font-semibold"
-          />
+            <IoSearch
+              strokeWidth={2}
+              className="text-textColor opacity-[.9] hover:opacity-[1] cursor-pointer text-3xl font-semibold"
+            />
           </Link>
         </NavbarItem>
         {isAuthenticated && (
           <NavbarItem className="hidden lg:flex ml-1 mr-1 items-center">
-           <Link to="/cart">
-           <LocalMallRoundedIcon
-              strokeWidth={1}
-              className="text-textColor opacity-[.9] hover:opacity-[1] cursor-pointer text-3xl font-bold"
-              fontSize="28px"
-            />
-           </Link>
+            <Link to="/cart">
+              <LocalMallRoundedIcon
+                strokeWidth={1}
+                className="text-textColor opacity-[.9] hover:opacity-[1] cursor-pointer text-3xl font-bold"
+                fontSize="28px"
+              />
+            </Link>
           </NavbarItem>
         )}
         {isAuthenticated && (
           <NavbarItem className="hidden lg:flex ml-1 mr-1 items-center">
-           <Link to="/account">
-           <RiAccountCircleLine
-              strokeWidth={0.5}
-              className="text-textColor opacity-[.9] hover:opacity-[1] cursor-pointer text-3xl font-semibold"
-            />
-           </Link>
+            <Link to="/account">
+              <RiAccountCircleLine
+                strokeWidth={0.5}
+                className="text-textColor opacity-[.9] hover:opacity-[1] cursor-pointer text-3xl font-semibold"
+              />
+            </Link>
           </NavbarItem>
         )}
         {/* <NavbarItem className="hidden lg:flex">    color={"#727472"}

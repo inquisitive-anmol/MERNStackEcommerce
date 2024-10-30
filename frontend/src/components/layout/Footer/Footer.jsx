@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className="w-full border-t-2 border-black/10 mt-10 py-7 px-3 flex flex-col justify-start items-center gap-4 h-[96vmax] sm:h-[62vmax] md:h-[50vmax] lg:h-[27vmax]"
+      className="w-full border-t-2 border-black/10 mt-10 py-7 px-3 flex flex-col justify-start items-center gap-4 h-[106vmax] sm:h-[62vmax] md:h-[50vmax] lg:h-[27vmax]"
     >
       <div className="w-full">
         <div className="w-full flex items-center justify-center flex-col gap-2">

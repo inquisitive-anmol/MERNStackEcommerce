@@ -6,7 +6,7 @@ import "./ConfirmOrder.css";
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import logo from "../../assets/images/logo.png";
 import axios from "axios";
 import { createOrder, clearErrors } from "../../reduxStore/actions/OrderAction";
@@ -70,10 +70,14 @@ const ConfirmOrder = ({ razorpayApiKey }) => {
     );
     return data;
   };
-
+  let isDisabled;
   const proceedToPayment = async (e) => {
     e.preventDefault();
-    console.log("button is working");
+    isDisabled = true;
+    setTimeout(() => {
+      isDisabled = false;
+    }, 4000);
+
     const orderData = {
       subtotal,
       shippingCharges,
@@ -130,13 +134,13 @@ const ConfirmOrder = ({ razorpayApiKey }) => {
     }
 
     const options = {
-      key: razorpayApiKey, 
-      amount: paymentData.amount, 
+      key: razorpayApiKey,
+      amount: paymentData.amount,
       currency: "INR",
       name: "Shoocart Enterprises",
       description: "Test Transaction",
       image: logo,
-      order_id: orderId.order_id, 
+      order_id: orderId.order_id,
       handler: function (response) {
         handlePayResCreateOrder(orderId, paymentData, order, response);
       },
@@ -155,11 +159,15 @@ const ConfirmOrder = ({ razorpayApiKey }) => {
 
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
-    paymentObject.on("payment.failed", function (response) {
-    });
+    paymentObject.on("payment.failed", function (response) {});
   }
 
-  const handlePayResCreateOrder = async (orderId, paymentData, order, response) => {
+  const handlePayResCreateOrder = async (
+    orderId,
+    paymentData,
+    order,
+    response
+  ) => {
     response.orderId = orderId.order_id;
     const verifyData = await verifyPayment(response);
     if (verifyData.success) {
@@ -167,17 +175,17 @@ const ConfirmOrder = ({ razorpayApiKey }) => {
         orderId: orderId.order_id,
         razorpayPaymentId: response.razorpay_payment_id,
         razorpayOrderId: response.razorpay_order_id,
-        status: "success"
-      }
+        status: "success",
+      };
       dispatch(createOrder(order));
-     if(!error) {
-      toast.success("payment successful");
-      navigate("/success");
-     } else {
-      toast.error(error);
-     }
+      if (!error) {
+        toast.success("payment successful");
+        navigate("/success");
+      } else {
+        toast.error(error);
+      }
     }
-  }
+  };
 
   useEffect(() => {
     if (error) {
@@ -254,7 +262,9 @@ const ConfirmOrder = ({ razorpayApiKey }) => {
               <span>₹{totalPrice}</span>
             </div>
 
-            <button onClick={proceedToPayment}>Proceed To Payment</button>
+            <button disabled={isDisabled} onClick={proceedToPayment}>
+              Proceed To Payment
+            </button>
           </div>
         </div>
       </div>
