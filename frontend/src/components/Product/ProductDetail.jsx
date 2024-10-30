@@ -33,7 +33,6 @@ const ProductDetail = () => {
     (state) => state.productDetails
   );
 
-
   const { success, error: reviewError } = useSelector(
     (state) => state.newReview
   );
@@ -62,7 +61,6 @@ const ProductDetail = () => {
     product.variants && product.variants.length > 0
       ? product.variants.find((itm) => itm.size === size)
       : { stock: 0 };
-  console.log("qtyTracker: ", qtyTracker, "\n", "size: ", size);
 
   const handleQuantity = (e) => {
     setQuantity(Number(e.target.value));

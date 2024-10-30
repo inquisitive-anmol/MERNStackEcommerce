@@ -6,27 +6,30 @@ import {
 import axios from "axios";
 
 // Add to the Cart
-export const addItemsToCart = (id, quantity, size) => async (dispatch, getState) => {
-  const { data } = await axios.get(
-    `http://localhost:4000/api/v1/product/${id}`
-  );
-const variant = data.product.variants.find((itm) => itm.size === size);
-console.log("variant: ", variant, "\n", "quantity: ", quantity);
-  dispatch({
-    type: ADD_TO_CART,
-    payload: {
-      product: id,
-      name: data.product.name,
-      price: variant.shoocartPrice,
-      size: size,
-      stock: variant.stock,
-      image: data.product.images[0].url,
-      quantity,
-    },
-  });
+export const addItemsToCart =
+  (id, quantity, size) => async (dispatch, getState) => {
+    const { data } = await axios.get(
+      `http://localhost:4000/api/v1/product/${id}`
+    );
+    const variant = data.product.variants.find((itm) => itm.size === size);
+    dispatch({
+      type: ADD_TO_CART,
+      payload: {
+        product: id,
+        name: data.product.name,
+        price: variant.shoocartPrice,
+        size: size,
+        stock: variant.stock,
+        image: data.product.images[0].url,
+        quantity,
+      },
+    });
 
-  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
-};
+    localStorage.setItem(
+      "cartItems",
+      JSON.stringify(getState().cart.cartItems)
+    );
+  };
 
 // REMOVE FROM CART
 export const removeItemsFromCart = (id, size) => async (dispatch, getState) => {
@@ -37,7 +40,6 @@ export const removeItemsFromCart = (id, size) => async (dispatch, getState) => {
       size,
     },
   });
-
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 

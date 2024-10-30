@@ -169,7 +169,6 @@ export const getProductDetails = (id) => async (dispatch) => {
       `http://localhost:4000/api/v1/product/${id}`
     );
 
-    console.log("data.product in detail action: ", data.product);
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data.product,

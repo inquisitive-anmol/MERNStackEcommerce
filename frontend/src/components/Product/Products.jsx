@@ -26,7 +26,6 @@ const Products = () => {
   const { loading, products, error, productsCount, resultPerPage } =
     useSelector((state) => state.products);
 
-    console.log("products: ", products);
   const { keyword } = useParams();
 
   const setCurrentPageNo = (e) => {

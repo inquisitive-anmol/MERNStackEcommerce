@@ -77,13 +77,11 @@ export const register = (userData) => async (dispatch) => {
       },
     };
 
-    console.log("sab sahi hai!!!");
     const { data } = await axios.post(
       `http://localhost:4000/api/v1/register`,
       userData,
       config
     );
-    console.log("yha bhi sab sahi hai!!!");
     dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
   } catch (error) {
     dispatch({
@@ -104,7 +102,6 @@ export const loadUser = () => async (dispatch) => {
 
     dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
   } catch (error) {
-    console.log("error: ", error);
     dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
   }
 };
@@ -116,11 +113,9 @@ export const logout = () => async (dispatch) => {
       withCredentials: true,
     });
 
-    console.log("response: ", response);
 
     dispatch({ type: LOGOUT_SUCCESS });
   } catch (error) {
-    console.log("error: ", error);
     dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
   }
 };
@@ -255,7 +250,6 @@ export const updateUser = (id, userData) => async (dispatch) => {
       userData,
       config
     );
-console.log("data: ", data);
     dispatch({ type: UPDATE_USER_SUCCESS, payload: data.success });
   } catch (error) {
     dispatch({
