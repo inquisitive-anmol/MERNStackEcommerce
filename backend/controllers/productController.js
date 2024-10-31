@@ -50,7 +50,6 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
 
   const products = await apiFeature.query;
 
-  
   if (!products) {
     return next(new ErrorHandler("Product not found", 404));
   }

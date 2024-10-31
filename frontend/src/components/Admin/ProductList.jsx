@@ -8,18 +8,17 @@ import {
   deleteProduct,
 } from "../../reduxStore/actions/productAction";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
-import { Button } from '@mui/material';
+import { toast } from "react-toastify";
+import { Button } from "@mui/material";
 import MetaData from "../layout/MetaData";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import SideBar from "./SideBar";
 import { DELETE_PRODUCT_RESET } from "../../reduxStore/constants/productsConstants";
 
 const ProductList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
 
   const { error, products } = useSelector((state) => state.products);
 
@@ -90,11 +89,7 @@ const ProductList = () => {
               <EditIcon />
             </Link>
 
-            <Button
-              onClick={() =>
-                deleteProductHandler(params.id)
-              }
-            >
+            <Button onClick={() => deleteProductHandler(params.id)}>
               <DeleteIcon />
             </Button>
           </>
@@ -105,7 +100,8 @@ const ProductList = () => {
 
   const rows = [];
 
-  products && products.length &&
+  products &&
+    products.length &&
     products.forEach((item) => {
       rows.push({
         id: item._id,
@@ -114,7 +110,7 @@ const ProductList = () => {
         name: item.name,
       });
     });
-console.log("rows: ", rows);
+  console.log("rows: ", rows);
   return (
     <>
       <MetaData title={`ALL PRODUCTS - Admin`} />
@@ -138,5 +134,4 @@ console.log("rows: ", rows);
   );
 };
 
-
-export default ProductList
+export default ProductList;
