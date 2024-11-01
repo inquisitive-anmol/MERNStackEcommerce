@@ -11,6 +11,8 @@ import logo from "../../assets/images/logo.png";
 import axios from "axios";
 import { createOrder, clearErrors } from "../../reduxStore/actions/OrderAction";
 import { useEffect } from "react";
+const apiUrl = import.meta.env.VITE_API_URL;
+
 
 const ConfirmOrder = ({ razorpayApiKey }) => {
   const navigate = useNavigate();
@@ -40,7 +42,7 @@ const ConfirmOrder = ({ razorpayApiKey }) => {
         },
       };
       const { data } = await axios.post(
-        "http://localhost:4000/api/v1/payment/process",
+        "${apiUrl}/api/v1/payment/process",
         paymentData,
         { withCredentials: true },
         config
@@ -63,7 +65,7 @@ const ConfirmOrder = ({ razorpayApiKey }) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:4000/api/v1/payment/verify",
+      "${apiUrl}/api/v1/payment/verify",
       response,
       { withCredentials: true },
       config

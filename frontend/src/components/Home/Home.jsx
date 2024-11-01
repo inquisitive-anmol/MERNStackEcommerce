@@ -7,12 +7,12 @@ import { useDispatch, useSelector} from "react-redux";
 import { toast } from 'react-toastify';
 
 
+
 const Home = () => {
   const { loading, error, products, productCount } = useSelector(
     (state) => state.products
   );
   const dispatch = useDispatch();
-
   useEffect(() => {
     if(error) {
       toast.error(error);

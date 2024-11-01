@@ -21,6 +21,7 @@ import {
 } from "../constants/OrderConstants";
 
 import axios from "axios";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 // Create Order
 export const createOrder = (order) => async (dispatch) => {
@@ -32,7 +33,7 @@ export const createOrder = (order) => async (dispatch) => {
       withCredentials: true,
     };
     const { data } = await axios.post(
-      "http://localhost:4000/api/v1/order/new",
+      "${apiUrl}/api/v1/order/new",
       order,
       config,
     );
@@ -51,7 +52,7 @@ export const myOrders = () => async (dispatch) => {
   try {
     dispatch({ type: MY_ORDERS_REQUEST });
 
-    const { data } = await axios.get("http://localhost:4000/api/v1/orders/me", {
+    const { data } = await axios.get("${apiUrl}/api/v1/orders/me", {
       withCredentials: true
     });
 
@@ -70,7 +71,7 @@ export const getAllOrders = () => async (dispatch) => {
     dispatch({ type: ALL_ORDERS_REQUEST });
 
     const { data } = await axios.get(
-      "http://localhost:4000/api/v1/admin/orders",
+      "${apiUrl}/api/v1/admin/orders",
       { withCredentials: true }
     );
 
@@ -95,7 +96,7 @@ export const updateOrder = (id, order) => async (dispatch) => {
       withCredentials: true
     };
     const { data } = await axios.put(
-      `http://localhost:4000/api/v1/admin/order/${id}`,
+      `${apiUrl}/api/v1/admin/order/${id}`,
       order,
       config
     );
@@ -115,7 +116,7 @@ export const deleteOrder = (id) => async (dispatch) => {
     dispatch({ type: DELETE_ORDER_REQUEST });
 
     const { data } = await axios.delete(
-      `http://localhost:4000/api/v1/admin/order/${id}`,
+      `${apiUrl}/api/v1/admin/order/${id}`,
       { withCredentials: true }
     );
 
@@ -134,7 +135,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
     dispatch({ type: ORDER_DETAILS_REQUEST });
 
     const { data } = await axios.get(
-      `http://localhost:4000/api/v1/order/${id}`,
+      `${apiUrl}/api/v1/order/${id}`,
       { withCredentials: true }
     );
 

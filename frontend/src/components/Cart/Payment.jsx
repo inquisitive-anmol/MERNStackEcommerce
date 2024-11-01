@@ -10,6 +10,8 @@ import "./Payment.css";
 import logo from "../../assets/images/logo.png";
 import { replace, useNavigate } from "react-router-dom";
 import { createOrder, clearErrors } from "../../reduxStore/actions/OrderAction";
+const apiUrl = import.meta.env.VITE_API_URL;
+
 
 const Payment = ({ razorpayApiKey }) => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -47,7 +49,7 @@ const Payment = ({ razorpayApiKey }) => {
         },
       };
       const { data } = await axios.post(
-        "http://localhost:4000/api/v1/payment/process",
+        "${apiUrl}/api/v1/payment/process",
         paymentData,
         { withCredentials: true },
         config
