@@ -49,6 +49,7 @@ import Privacy from "./components/Policies/Privacy";
 import ReturnExchange from "./components/Policies/ReturnExchange";
 import TermCondition from "./components/Policies/TermCondition";
 import ShippingPolicy from "./components/Policies/ShippingPolicy";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const App = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -57,7 +58,7 @@ const App = () => {
 
   async function getRazorpayApiKey() {
     const { data } = await axios.get(
-      "http://localhost:4000/api/v1/razorpayapikey",
+      `${apiUrl}/api/v1/razorpayapikey`,
       { withCredentials: true }
     );
     setRazorpayApiKey(data.razorpayApiKey);

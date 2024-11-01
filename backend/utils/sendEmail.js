@@ -16,8 +16,7 @@ const sendEmail = async (options) => {
     refresh_token: process.env.OAUTH_REFRESH_TOKEN
   });
 
-  const accessToken = oauth2Client.getAccessToken();
-  
+  const accessToken = await oauth2Client.getAccessToken();
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -26,7 +25,7 @@ const sendEmail = async (options) => {
       clientId: process.env.CLIENT_ID, // Google Client ID
       clientSecret: process.env.CLIENT_SECRET, // Google Client Secret
       refreshToken: process.env.REFRESH_TOKEN, // OAuth2 Refresh Token
-      accessToken: process.env.OUATH_ACCESS_TOKEN // Access token generated
+      accessToken: accessToken.token, // Access token generated
     }
   });
 
