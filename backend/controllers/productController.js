@@ -7,11 +7,18 @@ const cloudinary = require("cloudinary");
 // Create New Product -- Admin
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
   let images = [];
+  let variants = [];
 
   if (typeof req.body.images === "string") {
     images.push(req.body.images);
   } else {
     images = req.body.images;
+  }
+
+  if (typeof req.body.variants === "string") {
+    req.body.variants = JSON.parse(req.body.variants);
+  } else {
+    variants = req.body.variants;
   }
 
   const imagesLinks = [];
@@ -30,6 +37,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
   req.body.images = imagesLinks;
   req.body.user = req.user.id;
 
+  console.log("req.body: ", req.body.variants);
   const product = await Product.create(req.body);
   res.status(201).json({
     success: true,
