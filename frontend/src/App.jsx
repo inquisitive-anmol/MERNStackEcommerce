@@ -32,6 +32,8 @@ import OrderDetails from "./components/Orders/OrderDetails";
 import OrderFailed from "./components/Cart/OrderFailed";
 import Dashboard from "./components/Admin/Dashboard";
 import ProductList from "./components/Admin/ProductList";
+import Catelogue from "./components/Admin/Catelogue";
+import CatelogueDisplay from "./components/Admin/CatelogueDisplay";
 import UpdateProduct from "./components/Admin/UpdateProduct";
 import NewProduct from "./components/Admin/NewProduct";
 import OrderList from "./components/Admin/OrderList";
@@ -214,6 +216,16 @@ const App = () => {
           element={
             <ProtectedRoute>
               <ProductList />
+              isAdmin={true}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/admin/product/catelogue/:id"
+          element={
+            <ProtectedRoute>
+              <Catelogue />
               isAdmin={true}
             </ProtectedRoute>
           }

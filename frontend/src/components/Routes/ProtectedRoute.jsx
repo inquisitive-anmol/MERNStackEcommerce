@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children, isAdmin }) => {
       if (isAuthenticated === false) {
         return navigate("/login", { state: { from: location.pathname } });
       }
-      if (isAdmin === true && user.role !== "admin") {
+      if (isAdmin === true && user.role !== "admin" && user.role!== "seller") {
         return navigate("/login", { state: { from: location.pathname } });
       }
     }

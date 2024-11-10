@@ -48,15 +48,22 @@ const Dashboard = () => {
 
   products &&
     products.forEach((item) => {
-      if (item.Stock === 0) {
-        outOfStock += 1;
-      }
+      console.log(item);
+      item.variants.forEach((varItem) => {
+        if (varItem.Stock === 0) {
+          outOfStock += 1;
+        }
+      });
     });
 
   let totalAmount = 0;
   orders &&
     orders.forEach((item) => {
-      totalAmount += item.totalPrice;
+      console.log(item);
+      item.orderItems.forEach((varItem) => {
+        console.log(varItem);
+        totalAmount += varItem.price;
+      });
     });
 
   const lineState = {
@@ -119,32 +126,41 @@ const Dashboard = () => {
           <div className="dashboardSummaryBox2">
             <Link to="/admin/products">
               <p className="text-[0.775rem] md:text-[1.1rem]">Product</p>
-              <p className="text-[0.775rem] md:text-[1.1rem]">{products && products.length}</p>
+              <p className="text-[0.775rem] md:text-[1.1rem]">
+                {products && products.length}
+              </p>
             </Link>
             <Link to="/admin/orders">
               <p className="text-[0.775rem] md:text-[1.1rem]">Orders</p>
-              <p className="text-[0.775rem] md:text-[1.1rem]">{orders && orders.length}</p>
+              <p className="text-[0.775rem] md:text-[1.1rem]">
+                {orders && orders.length}
+              </p>
             </Link>
             <Link to="/admin/users">
               <p className="text-[0.775rem] md:text-[1.1rem]">Users</p>
-              <p className="text-[0.775rem] md:text-[1.1rem]">{users && users.length}</p>
+              <p className="text-[0.775rem] md:text-[1.1rem]">
+                {users && users.length}
+              </p>
             </Link>
           </div>
         </div>
 
         <div className="lineChart">
           <div>
-          <Line
-            data={lineState}
-            options={{ responsive: true, maintainAspectRatio: false }}
-          />
+            <Line
+              data={lineState}
+              options={{ responsive: true, maintainAspectRatio: false }}
+            />
           </div>
         </div>
 
         <div className="doughnutChart">
-         <div>
-         <Doughnut data={doughnutState} options={{ responsive: true, maintainAspectRatio: false }} />
-         </div>
+          <div>
+            <Doughnut
+              data={doughnutState}
+              options={{ responsive: true, maintainAspectRatio: false }}
+            />
+          </div>
         </div>
       </div>
     </div>

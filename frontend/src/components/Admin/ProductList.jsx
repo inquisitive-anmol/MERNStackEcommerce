@@ -51,28 +51,58 @@ const ProductList = () => {
   }, [dispatch, toast, error, deleteError, navigate, isDeleted]);
 
   const columns = [
+    {
+      field: "image",
+      headerName: "Image",
+      minWidth: 120,
+      flex: 0.3,
+      renderCell: (params) => {
+        return (
+          <>
+            <Link to={`/admin/product/catelogue/${params.row.id}`}>
+              <img
+                src={params.row.image}
+                alt="product"
+                style={{ width: "80%", height: "90%" }}
+              />
+            </Link>
+          </>
+        );
+      },
+    },
     { field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5 },
+    {
+      field: "sellerId",
+      flex: 0.5,
+      headerName: "Seller ID",
+      minWidth: 200,
+      renderCell: (params) => {
+        return (
+          <>
+            <Link to={`/account`}>{params.row.sellerId}</Link>
+          </>
+        );
+      },
+    },
 
     {
       field: "name",
       headerName: "Name",
-      minWidth: 350,
-      flex: 1,
-    },
-    {
-      field: "stock",
-      headerName: "Stock",
-      type: "number",
-      minWidth: 150,
+      minWidth: 180,
       flex: 0.3,
     },
 
     {
-      field: "price",
-      headerName: "Price",
-      type: "number",
-      minWidth: 270,
-      flex: 0.5,
+      field: "category",
+      headerName: "Category",
+      minWidth: 170,
+      flex: 0.2,
+    },
+    {
+      field: "createdAt",
+      headerName: "Created At",
+      minWidth: 100,
+      flex: 0.2,
     },
 
     {
@@ -85,11 +115,14 @@ const ProductList = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/admin/product/${params.id}`}>
+            {/* <Link to={`/admin/product/${params.id}`}>
               <EditIcon />
-            </Link>
-
-            <Button onClick={() => deleteProductHandler(params.id)}>
+            </Link> */}
+<EditIcon onClick={() => toast.error("feature not working! Under development")}/>
+            {/* <Button onClick={() => deleteProductHandler(params.id)}>
+              <DeleteIcon />
+            </Button> */}
+            <Button onClick={() => toast.error("feature not working under development")}>
               <DeleteIcon />
             </Button>
           </>
@@ -104,22 +137,30 @@ const ProductList = () => {
     products.length &&
     products.forEach((item) => {
       rows.push({
+        image: item.images[0].url,
         id: item._id,
-        stock: item.Stock,
-        price: item.price,
+        sellerId: item.user,
+        category: item.category,
+        createdAt: item.createdAt,
         name: item.name,
       });
     });
-  console.log("rows: ", rows);
   return (
     <>
       <MetaData title={`ALL PRODUCTS - Admin`} />
 
       <div className="dashboard">
         <SideBar />
-        <div className="productListContainer">
+        <div className="productListContainer overflow-x-auto">
           <h1 id="productListHeading">ALL PRODUCTS</h1>
-
+          {/* <div className="hover:text-orange-600 mx-2 my-4">
+            <Link
+              to={`/admin/product/catelogue`}
+              className=" bg-black/10 rounded p-3"
+            >
+              See Product Catelogue
+            </Link>
+          </div> */}
           <DataGrid
             rows={rows}
             columns={columns}
