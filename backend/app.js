@@ -15,7 +15,7 @@ dotenv.config({path: "backend/config/config.env"});
 
 
 const corsOptions = {
-    origin: "http://localhost:5173",
+    origin: process.env.BASE_FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-File-Name'],
     credentials: true
