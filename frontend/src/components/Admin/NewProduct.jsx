@@ -72,18 +72,7 @@ const NewProduct = () => {
 
   const handleAddMoreBtn = () => {
     const newVariants = [...variants];
-    newVariants.push({
-      shoocartPrice: shoocartPrice,
-      maxPrice: maxPrice,
-      size: size,
-      stock: stock,
-      weight: weight,
-      brand: brand,
-      material: material,
-      soleMaterial: soleMaterial,
-      manufacturersDetail: manufacturersDetail,
-      packersDetail: packersDetail,
-    });
+    newVariants.push({});
     setVariants(newVariants);
   };
 
