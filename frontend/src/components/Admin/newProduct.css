@@ -49,7 +49,7 @@
     position: absolute;
     transform: translateX(1vmax);
     font-size: 1.6vmax;
-    color: rgba(0, 0, 0, 0.623);
+    color: rgba(0, 0, 0);
   }
   
   #createProductFormFile > input {
@@ -67,7 +67,7 @@
     font: 400 0.8vmax;
     transition: all 0.5s;
     padding: 0 1vmax;
-    color: rgba(0, 0, 0, 0.623);
+    color: rgba(0, 0, 0);
     background-color: rgb(255, 255, 255);
   }
   
@@ -135,4 +135,9 @@
       font: 300 1.9vmax "Roboto";
       padding: 1.8vmax;
     }
+  }
+
+  .custom-placeholder::placeholder {
+    color: black; /* Replace with your desired color */
+    opacity: 1; /* Optional: makes the color fully opaque */
   }

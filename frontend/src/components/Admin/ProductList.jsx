@@ -115,14 +115,18 @@ const ProductList = () => {
       renderCell: (params) => {
         return (
           <>
-            {/* <Link to={`/admin/product/${params.id}`}>
+            <Link to={`/admin/product/${params.id}`}>
               <EditIcon />
-            </Link> */}
-<EditIcon onClick={() => toast.error("feature not working! Under development")}/>
+            </Link>
+            {/* <EditIcon onClick={() => toast.error("feature not working! Under development")}/> */}
             {/* <Button onClick={() => deleteProductHandler(params.id)}>
               <DeleteIcon />
             </Button> */}
-            <Button onClick={() => toast.error("feature not working under development")}>
+            <Button
+              onClick={() =>
+                toast.error("feature not working under development")
+              }
+            >
               <DeleteIcon />
             </Button>
           </>

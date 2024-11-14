@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from "react";
-import "./newProduct.css"
+import "./newProduct.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
   clearErrors,
   updateProduct,
   getProductDetails,
 } from "../../reduxStore/actions/productAction";
-import { toast } from 'react-toastify';
-import { Button } from '@mui/material';
+import { toast } from "react-toastify";
+import { Button } from "@mui/material";
 import MetaData from "../layout/MetaData";
-import AccountTreeIcon from '@mui/icons-material/AccountTree';
-import DescriptionIcon from '@mui/icons-material/Description';
-import StorageIcon from '@mui/icons-material/Storage';
-import SpellcheckIcon from '@mui/icons-material/Spellcheck';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import AccountTreeIcon from "@mui/icons-material/AccountTree";
+import DescriptionIcon from "@mui/icons-material/Description";
+import SpellcheckIcon from "@mui/icons-material/Spellcheck";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import ZoomOutMapIcon from "@mui/icons-material/ZoomOutMap";
+import ScaleIcon from "@mui/icons-material/Scale";
+import BrandingWatermarkIcon from "@mui/icons-material/BrandingWatermark";
+import LayersIcon from "@mui/icons-material/Layers";
+import AcUnitIcon from "@mui/icons-material/AcUnit";
+import BlurOnIcon from "@mui/icons-material/BlurOn";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import Inventory2Icon from "@mui/icons-material/Inventory2";
+// import StorageIcon from "@mui/icons-material/Storage";
 import SideBar from "./SideBar";
 import { UPDATE_PRODUCT_RESET } from "../../reduxStore/constants/productsConstants";
-import { useNavigate, useParams } from "react-router-dom";
+import { matchRoutes, useNavigate, useParams } from "react-router-dom";
 
 const UpdateProduct = () => {
   const dispatch = useDispatch();
@@ -33,13 +41,13 @@ const UpdateProduct = () => {
   } = useSelector((state) => state.product);
 
   const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [Stock, setStock] = useState(0);
   const [images, setImages] = useState([]);
   const [oldImages, setOldImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
+
+  console.log(product);
 
   const categories = [
     "Laptop",
@@ -53,15 +61,19 @@ const UpdateProduct = () => {
 
   const productId = params.id;
 
+  const handleAddMoreBtn = () => {
+    const newVariants = [...variants];
+    newVariants.push({});
+    setVariants(newVariants);
+  };
+
   useEffect(() => {
     if (product && product._id !== productId) {
       dispatch(getProductDetails(productId));
     } else {
       setName(product.name);
       setDescription(product.description);
-      setPrice(product.price);
       setCategory(product.category);
-      setStock(product.Stock);
       setOldImages(product.images);
     }
     if (error) {
@@ -90,16 +102,33 @@ const UpdateProduct = () => {
     updateError,
   ]);
 
+  const prepareFormData = () => {
+    let finalVariants = [];
+    const variantsChild = document.querySelectorAll(".variantsChild");
+    variantsChild.forEach((variant) => {
+      let grandChilds = variant.children;
+      let obj = {};
+      for (let i = 1; i < grandChilds.length; i++) {
+        let inp = grandChilds[i].lastElementChild;
+        obj[inp.name] = inp.value;
+      }
+      finalVariants.push(obj);
+    });
+
+    return finalVariants;
+  };
+
   const updateProductSubmitHandler = (e) => {
     e.preventDefault();
 
     const myForm = new FormData();
 
+    const finalVariants = prepareFormData();
+    console.log(finalVariants);
     myForm.set("name", name);
-    myForm.set("price", price);
     myForm.set("description", description);
     myForm.set("category", category);
-    myForm.set("Stock", Stock);
+    myForm.append("variants", JSON.stringify(finalVariants));
 
     images.forEach((image) => {
       myForm.append("images", image);
@@ -151,16 +180,6 @@ const UpdateProduct = () => {
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-            <div>
-              <AttachMoneyIcon />
-              <input
-                type="number"
-                placeholder="Price"
-                required
-                onChange={(e) => setPrice(e.target.value)}
-                value={price}
-              />
-            </div>
 
             <div>
               <DescriptionIcon />
@@ -189,17 +208,6 @@ const UpdateProduct = () => {
               </select>
             </div>
 
-            <div>
-              <StorageIcon />
-              <input
-                type="number"
-                placeholder="Stock"
-                required
-                onChange={(e) => setStock(e.target.value)}
-                value={Stock}
-              />
-            </div>
-
             <div id="createProductFormFile">
               <input
                 type="file"
@@ -222,6 +230,132 @@ const UpdateProduct = () => {
                 <img key={index} src={image} alt="Product Preview" />
               ))}
             </div>
+
+
+            <div
+              className="w-full h-fit flex flex-wrap gap-6"
+              id="variantParent"
+            >
+              {product &&
+                product.variants &&
+                product.variants.map((item, index) => (
+                  <div
+                    className="variantsChild w-full flex flex-col gap-2 border-b-2 border-black/5 rounded"
+                    key={index}
+                  >
+                    <h3>Variant({index + 1}): </h3>
+                    <div className="inpDiv">
+                      <AttachMoneyIcon />
+                      <input
+                        className="inp custom-placeholder"
+                        type="number"
+                        name="shoocartPrice"
+                        placeholder={item.shoocartPrice}
+                        required
+                      />
+                    </div>
+                    <div className="inpDiv">
+                      <AttachMoneyIcon />
+                      <input
+                        className="inp custom-placeholder"
+                        type="number"
+                        name="maxPrice"
+                        placeholder={item.maxPrice}
+                        required
+                      />
+                    </div>
+                    <div className="inpDiv">
+                      <ZoomOutMapIcon />
+                      <input
+                        className="inp custom-placeholder"
+                        type="text"
+                        name="size"
+                        placeholder={item.size}
+                        required
+                      />
+                    </div>
+
+                    <div className="inpDiv">
+                      <Inventory2Icon />
+                      <input
+                        className="inp custom-placeholder"
+                        type="number"
+                        name="stock"
+                        placeholder={item.stock}
+                        required
+                      />
+                    </div>
+                    <div className="inpDiv">
+                      <ScaleIcon />
+                      <input
+                        className="inp custom-placeholder"
+                        type="number"
+                        name="weight"
+                        placeholder={item.weight}
+                        required
+                      />
+                    </div>
+                    <div className="inpDiv">
+                      <BrandingWatermarkIcon />
+                      <input
+                        className="inp custom-placeholder"
+                        type="text"
+                        name="brand"
+                        placeholder={item.brand}
+                        required
+                      />
+                    </div>
+                    <div className="inpDiv">
+                      <LayersIcon />
+                      <input
+                        className="inp custom-placeholder"
+                        type="text"
+                        name="material"
+                        placeholder={item.material}
+                        required
+                      />
+                    </div>
+                    <div className="inpDiv">
+                      <AcUnitIcon />
+                      <input
+                        className="inp custom-placeholder"
+                        type="text"
+                        name="soleMaterial"
+                        placeholder={item.soleMaterial}
+                        required
+                      />
+                    </div>
+                    <div className="inpDiv">
+                      <BlurOnIcon />
+                      <input
+                        className="inp custom-placeholder"
+                        type="text"
+                        name="manufacturersDetail"
+                        placeholder={item.manufacturersDetail}
+                      />
+                    </div>
+                    <div className="inpDiv">
+                      <LocalShippingIcon />
+                      <input
+                        className="inp custom-placeholder"
+                        type="text"
+                        name="packersDetail"
+                        placeholder={item.packersDetail}
+                      />
+                    </div>
+                  </div>
+                ))}
+            </div>
+            <div className="w-full flex items-center justify-end">
+              <button
+                onClick={handleAddMoreBtn}
+                type="button"
+                className="bg-black/5 hover:bg-black/10 px-3 py-2 rounded-lg"
+              >
+                Add More Variants
+              </button>
+            </div>
+            {/* ladsfjlsdf */}
 
             <Button
               id="createProductBtn"
