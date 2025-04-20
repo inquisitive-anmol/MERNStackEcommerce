@@ -53,6 +53,13 @@ const NewProduct = () => {
   ];
 
   const [variants, setVariants] = useState(variantsList);
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file); // This includes the `data:image/...` prefix
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
 
   const prepareFormData = () => {
     let finalVariants = [];
@@ -94,7 +101,8 @@ const NewProduct = () => {
 
     const myForm = new FormData();
     const finalVariants = prepareFormData();
-    console.log(finalVariants);
+    console.log("finalVariants", finalVariants);
+
     myForm.set("name", name);
     myForm.set("description", description);
     myForm.set("category", category);
@@ -107,7 +115,7 @@ const NewProduct = () => {
     dispatch(createProduct(myForm));
   };
 
-  const createProductImagesChange = (e) => {
+  const createProductImagesChange = async (e) => {
     const files = Array.from(e.target.files);
 
     setImages([]);
@@ -319,7 +327,7 @@ const NewProduct = () => {
               type="submit"
               disabled={loading ? true : false}
             >
-              Create
+              {loading ? "Creating Product..." : "Create Product"}
             </Button>
           </form>
         </div>

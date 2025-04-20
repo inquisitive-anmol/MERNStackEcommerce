@@ -279,12 +279,13 @@ const ProductDetail = () => {
               </p>
               <p className="description text-[16px] text-black text-wrap mt-7">
                 <p className="font-medium text-black text-lg">Description: </p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                {/* Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Assumenda aut beatae voluptatum facere recusandae tempora esse
                 consequuntur alias, dolorem vitae, eaque sint saepe dolore
                 quidem, tenetur velit! Sit totam veritatis possimus quisquam ex
                 unde rem sequi neque. Facilis aperiam voluptates, facere
-                accusamus sit exercitationem!
+                accusamus sit exercitationem! */}
+                {product.description}
               </p>
               <div className="give-review">
                 <button

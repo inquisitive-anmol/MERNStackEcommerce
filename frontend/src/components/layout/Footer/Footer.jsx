@@ -21,8 +21,8 @@ const Footer = () => {
             className="h-full w-full text-base flex items-center justify-center"
           />
           <p className="text-wrap text-sm md:text-medium lg:text-lg">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Consequatur dolore sint accusamus est, earum,
+            At Shoocart.in, our vision is to redefine the online shoe shopping
+            experience.
           </p>
           <div className="w-full socials flex items-center justify-center gap-3">
             <a href="#">

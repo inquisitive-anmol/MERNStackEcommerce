@@ -8,31 +8,42 @@ const cloudinary = require("cloudinary");
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
   let images = [];
   let variants = [];
-
+  console.log("request recieved!1");
   if (typeof req.body.images === "string") {
     images.push(req.body.images);
   } else {
     images = req.body.images;
   }
 
+  console.log("request recieved!");
+
   if (typeof req.body.variants === "string") {
     req.body.variants = JSON.parse(req.body.variants);
   } else {
     variants = req.body.variants;
   }
-
+  console.log("images: ", images);
+  console.log("variants: ", variants);
   const imagesLinks = [];
+  console.log("request recieved1.1");
+  try {
+    for (let i = 0; i < images.length; i++) {
+      console.log("request recieved1.1.1.1");
+      const result = await cloudinary.v2.uploader.upload(images[i], {
+        folder: "products",
+      });
 
-  for (let i = 0; i < images.length; i++) {
-    const result = await cloudinary.v2.uploader.upload(images[i], {
-      folder: "products",
-    });
+      console.log("request recieved1.2");
 
-    imagesLinks.push({
-      public_id: result.public_id,
-      url: result.secure_url,
-    });
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+  } catch (e) {
+    console.log(e);
   }
+  console.log("request recieved2");
 
   req.body.images = imagesLinks;
   req.body.user = req.user.id;
