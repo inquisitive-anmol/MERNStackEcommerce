@@ -16,7 +16,8 @@ dotenv.config({ path: "backend/config/config.env" });
 
 
 const corsOptions = {
-    origin: process.env.BASE_FRONTEND_URL,
+    origin: "https://lake-ecommerce.onrender.com",
+    // origin: process.env.BASE_FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-File-Name'],
     credentials: true
