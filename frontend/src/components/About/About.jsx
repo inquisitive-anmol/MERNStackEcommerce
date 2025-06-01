@@ -10,7 +10,7 @@ const About = () => {
         <div className="about-hero-box">
           <h2 className="about-hero-title">WHO ARE WE ?</h2>
           <p className="about-hero-title-para">
-            Elevate your every step with Shoocart.in - where style meets comfort
+            Elevate your every step with Lake.in - where style meets comfort
           </p>
         </div>
       </div>
@@ -18,13 +18,13 @@ const About = () => {
       <div className="about-sec">
         <div className="about-sec-cards">
           <div className="about-sec-card-left">
-            <h3 className="about-sec-card-left-h3">SHOOCART</h3>
+            <h3 className="about-sec-card-left-h3">LAKE</h3>
             <p className="about-sec-card-left-p">
-              Founded in 2024, Shoocart.in quickly emerged as a trailblazer in
+              Founded in 2024, Lake.in quickly emerged as a trailblazer in
               the online footwear industry. Our platform was created by a team
               of retail and technology experts who saw a need for a more
               user-friendly, diverse, and engaging shoe shopping experience.
-              Shoocart.in is not just about selling shoes; it's about defining a
+              Lake.in is not just about selling shoes; it's about defining a
               lifestyle and catering to the unique tastes and needs of shoe
               enthusiasts nationwide. We are committed to delivering quality,
               style, and outstanding customer service, ensuring every visitor
@@ -51,7 +51,7 @@ const About = () => {
           <div className="about-sec-card-left">
             <h3 className="about-sec-card-left-h3">OUR VISION</h3>
             <p className="about-sec-card-left-p">
-              At Shoocart.in, our vision is to redefine the online shoe shopping
+              At Lake.in, our vision is to redefine the online shoe shopping
               experience. We envision a platform that transcends the
               transactional nature of e-commerce, fostering a vibrant community
               of shoe enthusiasts and fashion-forward individuals. Our goal is
@@ -63,7 +63,7 @@ const About = () => {
               personalized recommendations, and exceptional service. With
               innovation at our core and a passion for footwear driving us
               forward, we aim to set new standards in the world of online shoe
-              shopping, making Shoocart.in the ultimate destination for shoe
+              shopping, making Lake.in the ultimate destination for shoe
               lovers everywhere.
             </p>
           </div>
@@ -73,7 +73,7 @@ const About = () => {
           <div className="about-sec-card-left">
             <h3 className="about-sec-card-left-h3">CORE VALUES</h3>
             <p className="about-sec-card-left-p">
-              At Shoocart.in, our core values are the foundation of our business
+              At Lake.in, our core values are the foundation of our business
               ethos. We prioritize <br />
               <b>Customer Satisfaction</b> by ensuring a seamless shopping
               experience and superior service. <br />
@@ -85,10 +85,10 @@ const About = () => {
               <b>Quality</b> underscores everything from our product offerings
               to customer interactions. <br />
               These values empower us to achieve excellence and maintain loyalty
-              among our customers, propelling Shoocart.in forward in the
+              among our customers, propelling Lake.in forward in the
               competitive online footwear industry.
             </p>
-            <p>This website is managed by Shoocart Enterprises</p>
+            <p>This website is managed by Lake Enterprises</p>
           </div>
           <div className="about-sec-card-right">
             <img

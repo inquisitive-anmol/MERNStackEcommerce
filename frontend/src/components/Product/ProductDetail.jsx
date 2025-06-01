@@ -124,7 +124,7 @@ const ProductDetail = () => {
         </div>
       ) : (
         <div className="w-full">
-          <MetaData title={`${product.name} -- Shoocart`} />
+          <MetaData title={`${product.name} -- Lake`} />
           <div className="w-full flex flex-col md:flex-row items-center justify-center p-1 mt-8">
             <div className="left md:w-[50%] md:flex-row flex items-start justify-center md:gap-3 gap-4 flex-col-reverse">
               <div className="img-b1 flex md:flex-col gap-2 items-center md:justify-start px-4">

@@ -21,7 +21,7 @@ const Footer = () => {
             className="h-full w-full text-base flex items-center justify-center"
           />
           <p className="text-wrap text-sm md:text-medium lg:text-lg">
-            At Shoocart.in, our vision is to redefine the online shoe shopping
+            At Lake.in, our vision is to redefine the online shoe shopping
             experience.
           </p>
           <div className="w-full socials flex items-center justify-center gap-3">
@@ -93,9 +93,9 @@ const Footer = () => {
               </Link>
             </h3>
             <h3 className="px-2 text-black/70">
-              <Link to="mailto:contact@shoocart.in">
+              <Link to="mailto:contact@lake.in">
                 <span>
-                  <EmailIcon /> shoocartenterprises@gmail.com
+                  <EmailIcon /> lakeenterprises@gmail.com
                 </span>
               </Link>
             </h3>
@@ -105,7 +105,7 @@ const Footer = () => {
       </div>
 
       <div className="text-sm text-black/70 px-2 py-2 my-4">
-        <p>Copyright &copy;2024 Shoocart Enterprises. All Rights Reserved</p>
+        <p>Copyright &copy;2024 Lake Enterprises. All Rights Reserved</p>
       </div>
     </footer>
   );

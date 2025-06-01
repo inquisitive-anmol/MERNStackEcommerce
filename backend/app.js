@@ -6,6 +6,7 @@ const cors = require("cors");
 const bodyParsor = require("body-parser");
 const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
+const path = require("path");
 
 
 const errorMiddleware = require("./middleware/error");
@@ -30,6 +31,8 @@ app.use(cors(corsOptions));
 app.use(bodyParsor.urlencoded({extended: true}));
 app.use(fileUpload());
 
+// Serve static files from React
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 
 // Route Imports

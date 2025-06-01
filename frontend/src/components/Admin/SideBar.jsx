@@ -18,7 +18,7 @@ const SideBar = () => {
     <div className="sidebar">
       <div>
       <Link to="/">
-        <img src={logo} alt="Shoocart Enterprises" />
+        <img src={logo} alt="Lake Enterprises" />
       </Link>
       </div>
       <div>

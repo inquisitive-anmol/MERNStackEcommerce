@@ -29,7 +29,7 @@ const Home = () => {
   return (
     <div className='w-full'>
 
-      <MetaData title="Shoocart" />
+      <MetaData title="Lake" />
 
       <div className='w-full'>
       <ImageSliderComponent imgHeightWidth={imgHeightWidth}/>

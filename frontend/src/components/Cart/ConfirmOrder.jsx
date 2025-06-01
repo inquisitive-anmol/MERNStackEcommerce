@@ -139,7 +139,7 @@ const ConfirmOrder = ({ razorpayApiKey }) => {
       key: razorpayApiKey,
       amount: paymentData.amount,
       currency: "INR",
-      name: "Shoocart Enterprises",
+      name: "Lake Enterprises",
       description: "Test Transaction",
       image: logo,
       order_id: orderId.order_id,

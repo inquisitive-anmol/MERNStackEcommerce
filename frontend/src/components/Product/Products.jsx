@@ -63,7 +63,7 @@ const Products = () => {
         </div>
       ) : (
         <>
-          <MetaData title="Products -- Shoocart" />
+          <MetaData title="Products -- Lake" />
           <div className="flex items-center justify-center w-full lg:mb-8 lg:mt-10">
             <h1 className=" w-fit border-b-1 border-b-black/50 px-5 md:text-lg lg:text-2xl lg:px-10 md:px-7">
               Products
