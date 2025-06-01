@@ -12,7 +12,7 @@ const path = require("path");
 const errorMiddleware = require("./middleware/error");
 
 // Confige
-dotenv.config({path: "backend/config/config.env"});
+dotenv.config({ path: "backend/config/config.env" });
 
 
 const corsOptions = {
@@ -28,7 +28,7 @@ const corsOptions = {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
-app.use(bodyParsor.urlencoded({extended: true}));
+app.use(bodyParsor.urlencoded({ extended: true }));
 app.use(fileUpload());
 
 // Serve static files from React
@@ -53,8 +53,12 @@ app.use("/api/v1", order);
 app.use("/api/v1", payment);
 
 
-// Middleware for Errors
+// ✅ This should come *after* your API routes
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../frontend/dist", "index.html"));
+});
 
+// Middleware for Errors
 app.use(errorMiddleware);
 
 module.exports = app;
